@@ -12,7 +12,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             base.Init(plugin);
 
-            HeaderConfigurationElement.Create(GetConfigurations(), $"{Name}_header", "Instant Interact");
+            HeaderConfigurationElement.Create(GetConfigurations(), $"{Name}_header", "[INSTANT INTERACT]");
             var toggle = BoolConfigurationElement.Create(GetConfigurations(), Name, "Toggle", false);
             Activate(toggle.Value);
             toggle.OnChangeValue += (bool v) => Activate(v);

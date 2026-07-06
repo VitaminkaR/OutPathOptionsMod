@@ -10,7 +10,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             base.Init(plugin);
 
-            HeaderConfigurationElement.Create(GetConfigurations(), $"{Name}_header", "Infinity Stats");
+            HeaderConfigurationElement.Create(GetConfigurations(), $"{Name}_header", "[INFINITE STATS]");
             var toggle = BoolConfigurationElement.Create(GetConfigurations(), Name, "Toggle", false);
             Activate(toggle.Value);
             toggle.OnChangeValue += (bool v) => Activate(v);
