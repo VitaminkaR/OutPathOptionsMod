@@ -15,8 +15,8 @@ namespace OutPathOptionsMod.Tweaks
             base.Init(plugin);
 
             HeaderConfigurationElement.Create(GetConfigurations(), $"{Name}_header", "[ADD CREDITS]");
-            _key = KeyConfigurationElement.Create(GetConfigurations(), Name + "_toggle", "Add key", UnityEngine.KeyCode.P);
-            _value = IntConfigurationElement.Create(GetConfigurations(), Name + "_credits", "Credits Count", 100, 0, int.MaxValue);
+            _key = KeyConfigurationElement.Create(GetConfigurations(), Name + "_toggle", "Add", UnityEngine.KeyCode.P);
+            _value = IntConfigurationElement.Create(GetConfigurations(), Name + "_credits", "Count", 100, 0, int.MaxValue);
 
             _harmony.PatchAll(typeof(CreditsAddPatches));
         }
