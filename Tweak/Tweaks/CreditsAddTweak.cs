@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using OutPathOptionsMod.Configuration.ConfigurationElements;
+using UnityEngine;
 
 namespace OutPathOptionsMod.Tweaks
 {
@@ -26,7 +27,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Postfix(PlayerGarden __instance)
             {
-                if (_key.Value.IsPressed())
+                if (Input.GetKeyDown(_key.Value))
                     __instance.AddCredits(_value.Value);
             }
         }
