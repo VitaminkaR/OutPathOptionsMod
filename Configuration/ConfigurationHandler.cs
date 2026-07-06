@@ -16,21 +16,21 @@ namespace OutPathOptionsMod.Configuration
     {
         public const float ELEMENT_SPACE_DIVISION_SIZE = 16;
 
-        private CursorLockMode _CursorState;
+        private CursorLockMode _cursorState;
 
-        private bool _CursorVisible;
+        private bool _cursorVisible;
 
-        private bool _MenuVisible = false;
+        private bool _menuVisible = false;
 
-        private Dictionary<string, List<IConfigureObject>> _ConfigureObjects;
+        private Dictionary<string, List<IConfigureObject>> _configureObjects;
 
-        private bool _IsChangeKey;
+        private bool _isChangeKey;
 
-        private Rect _WindowRect = new Rect(100, 100, 720, 680);
+        private Rect _windowRect = new Rect(100, 100, 720, 680);
 
-        private Vector2 scrollPosition;
+        private Vector2 _scrollPosition;
 
-        private string _KeyString;
+        private string _keyString;
 
         public string MenuHeader { get; set; }
 
@@ -49,7 +49,7 @@ namespace OutPathOptionsMod.Configuration
         {
             ConfigurationHandler handler = plugin.gameObject.AddComponent<ConfigurationHandler>();
 
-            handler._ConfigureObjects = new Dictionary<string, List<IConfigureObject>>();
+            handler._configureObjects = new Dictionary<string, List<IConfigureObject>>();
 
             handler.MenuHeader = MenuHeader;
 
@@ -70,55 +70,55 @@ namespace OutPathOptionsMod.Configuration
 
             if (string.IsNullOrEmpty(cat)) cat = "Main";
 
-            if (!_ConfigureObjects.ContainsKey(cat))
-                _ConfigureObjects.Add(obj.GetCategory(), new List<IConfigureObject>());
+            if (!_configureObjects.ContainsKey(cat))
+                _configureObjects.Add(obj.GetCategory(), new List<IConfigureObject>());
 
-            _ConfigureObjects[cat].Add(obj);
+            _configureObjects[cat].Add(obj);
 
-            _ConfigureObjects[cat].Sort((x, y) => x.GetID().CompareTo(y.GetID()));
+            _configureObjects[cat].Sort((x, y) => x.GetID().CompareTo(y.GetID()));
         }
 
         private void OpenMenu()
         {
-            _CursorState = Cursor.lockState;
-            _CursorVisible = Cursor.visible;
+            _cursorState = Cursor.lockState;
+            _cursorVisible = Cursor.visible;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            _MenuVisible = true;
+            _menuVisible = true;
         }
 
         private void CloseMenu()
         {
-            Cursor.lockState = _CursorState;
-            Cursor.visible = _CursorVisible;
-            _MenuVisible = false;
+            Cursor.lockState = _cursorState;
+            Cursor.visible = _cursorVisible;
+            _menuVisible = false;
         }
 
         private void OnGUI()
         {
-            _KeyString = OpenMenuKey.ToString();
+            _keyString = OpenMenuKey.ToString();
 
-            if (!_IsChangeKey && Event.current.Equals(Event.KeyboardEvent(_KeyString)))
+            if (!_isChangeKey && Event.current.Equals(Event.KeyboardEvent(_keyString)))
             {
-                if (_MenuVisible) CloseMenu(); else OpenMenu();
+                if (_menuVisible) CloseMenu(); else OpenMenu();
             }
 
-            if (_IsChangeKey)
+            if (_isChangeKey)
             {
-                _KeyString = "Wait";
+                _keyString = "Wait";
                 if (Event.current.isKey)
                 {
                     OpenMenuKey = Event.current.keyCode;
-                    _IsChangeKey = false;
+                    _isChangeKey = false;
                     _onChangeOpenMenuKey.Invoke(OpenMenuKey);
                 }
             }
 
-            if (_MenuVisible)
+            if (_menuVisible)
             {
                 GUI.skin.window.normal.textColor = Color.white;
                 GUI.backgroundColor = new Color(0.2f, 0.2f, 0.2f, 0.99f);
-                _WindowRect = GUILayout.Window(570, _WindowRect, DrawMenuWindow, MenuHeader, GUI.skin.window);
+                _windowRect = GUILayout.Window(570, _windowRect, DrawMenuWindow, MenuHeader, GUI.skin.window);
             }
         }
 
@@ -133,16 +133,16 @@ namespace OutPathOptionsMod.Configuration
 
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Close")) CloseMenu();
-            if (GUILayout.Button($"Change key: [{_KeyString}]")) _IsChangeKey = true;
+            if (GUILayout.Button($"Change key: [{_keyString}]")) _isChangeKey = true;
             GUILayout.EndHorizontal();
 
-            scrollPosition = GUILayout.BeginScrollView(scrollPosition);
+            _scrollPosition = GUILayout.BeginScrollView(_scrollPosition);
 
-            foreach (var key in _ConfigureObjects.Keys)
+            foreach (var key in _configureObjects.Keys)
             {
                 GUILayout.Label($"=========[ {key.ToUpper()} ]=========", centeredStyle);
 
-                foreach (var co in _ConfigureObjects[key])
+                foreach (var co in _configureObjects[key])
                 {
                     foreach (var configuration in co.GetConfigurations())
                     {
