@@ -21,6 +21,8 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
 
         private string _tempValue;
 
+        private bool _slider;
+
         public event Action<float> OnChangeValue;
 
         private ConfigEntry<float> _configEntry;
@@ -31,7 +33,8 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
             string title,
             float defvalue,
             float min,
-            float max) : base(id)
+            float max,
+            bool slider) : base(id)
         {
             configurations.Add(this);
             _title = title;
@@ -41,6 +44,7 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
             _configEntry = _config.Bind<float>("Config", id, defvalue);
             Value = _configEntry.Value;
             OnChangeValue += (float v) => _configEntry.Value = v;
+            _slider = slider;
         }
 
         public static FloatConfigurationElement Create(
@@ -49,9 +53,10 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
             string title,
             float defvalue,
             float min,
-            float max)
+            float max,
+            bool slider = false)
         {
-            FloatConfigurationElement element = new FloatConfigurationElement(configurations, id, title, defvalue, min, max);
+            FloatConfigurationElement element = new FloatConfigurationElement(configurations, id, title, defvalue, min, max, slider);
             return element;
         }
 
@@ -93,13 +98,16 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
                 }
             }
 
-            float value = GUILayout.HorizontalSlider(Value, _min, _max,
+            if (_slider)
+            {
+                float value = GUILayout.HorizontalSlider(Value, _min, _max,
                 GUILayout.MinWidth(SLIDER_MIN_WIDTH),
                 GUILayout.MaxWidth(SLIDER_MAX_WIDTH));
-            if (value != Value)
-            {
-                Value = value;
-                OnChangeValue.Invoke(Value);
+                if (value != Value)
+                {
+                    Value = value;
+                    OnChangeValue.Invoke(Value);
+                }
             }
 
             if (GUILayout.Button("Default", GUILayout.MinWidth(DEFAULT_BUTTON_SIZE), GUILayout.MaxWidth(DEFAULT_BUTTON_SIZE)))

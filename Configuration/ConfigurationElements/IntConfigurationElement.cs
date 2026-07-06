@@ -23,6 +23,8 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
 
         private string _tempValue;
 
+        private bool _slider;
+
         private ConfigEntry<int> _configEntry;
 
         private IntConfigurationElement(
@@ -31,7 +33,8 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
             string title,
             int defvalue,
             int min,
-            int max) : base(id)
+            int max,
+            bool slider) : base(id)
         {
             configurations.Add(this);
             _title = title;
@@ -41,6 +44,7 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
             _configEntry = _config.Bind<int>("Config", id, defvalue);
             Value = _configEntry.Value;
             OnChangeValue += (int v) => _configEntry.Value = v;
+            _slider = slider;
         }
 
         public static IntConfigurationElement Create(
@@ -49,9 +53,10 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
             string title,
             int defvalue,
             int min,
-            int max)
+            int max,
+            bool slider = false)
         {
-            IntConfigurationElement element = new IntConfigurationElement(configurations, id, title, defvalue, min, max);
+            IntConfigurationElement element = new IntConfigurationElement(configurations, id, title, defvalue, min, max, slider);
             return element;
         }
 
@@ -91,13 +96,16 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
                 }
             }
 
-            float value = GUILayout.HorizontalSlider(Value, _min, _max, 
-                GUILayout.MinWidth(SLIDER_MIN_WIDTH), 
-                GUILayout.MaxWidth(SLIDER_MAX_WIDTH));
-            if (value != Value)
+            if (_slider)
             {
-                Value = (int)value;
-                OnChangeValue.Invoke(Value);
+                float value = GUILayout.HorizontalSlider(Value, _min, _max,
+                                GUILayout.MinWidth(SLIDER_MIN_WIDTH),
+                                GUILayout.MaxWidth(SLIDER_MAX_WIDTH));
+                if (value != Value)
+                {
+                    Value = (int)value;
+                    OnChangeValue.Invoke(Value);
+                }
             }
 
             if (GUILayout.Button("Default", GUILayout.MinWidth(DEFAULT_BUTTON_SIZE), GUILayout.MaxWidth(DEFAULT_BUTTON_SIZE)))
