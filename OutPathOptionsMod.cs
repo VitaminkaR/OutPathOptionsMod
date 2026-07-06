@@ -79,7 +79,6 @@ namespace OutPathOptionsMod
             }
 
             // Player
-            configInstantInteract = ((BaseUnityPlugin)this).Config.Bind<bool>("Player", "Instant Interact", false, "Sets whether \"clicks\" will have a cooldown.");
             configInstantPlayerBreak = ((BaseUnityPlugin)this).Config.Bind<bool>("Player", "Instant Break", false, "Sets whether the player will instantly break items.");
             configCreditsAddKey = ((BaseUnityPlugin)this).Config.Bind<KeyboardShortcut>("Player", "Add Credits Hotkey", new KeyboardShortcut(UnityEngine.KeyCode.Z), "Sets a hotkey, when pressed, credits will be added.");
             configDupeItemInHand = ((BaseUnityPlugin)this).Config.Bind<KeyboardShortcut>("Player", "Dupe Item In Hand", new KeyboardShortcut(UnityEngine.KeyCode.X), "Sets a hotkey, when pressed, the number of items in your hands will increase. Add the item for the dup to your inventory and click on the button.");
@@ -129,8 +128,6 @@ namespace OutPathOptionsMod
                 if (configDupeItemInHand.Value.IsPressed())
                     InventoryManager.instance.AddItemToInv(InventoryManager.instance.selectedHotbarSlot.itemInfo, 1);
 
-                if (configInstantInteract.Value)
-                    __instance.healthyStateIncreaseMult = 0;
 
                 if (configGetAllItems.Value.IsDown())
                 {
