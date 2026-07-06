@@ -5,6 +5,8 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
     public abstract class ConfigurationElement
     {
         public const float DEFAULT_BUTTON_SIZE = 64;
+        public const float SLIDER_MIN_WIDTH = 128;
+        public const float SLIDER_MAX_WIDTH = 384;
 
         protected ConfigFile _config;
 

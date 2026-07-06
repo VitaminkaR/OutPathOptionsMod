@@ -91,7 +91,9 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
                 }
             }
 
-            float value = GUILayout.HorizontalSlider(Value, _min, _max, GUILayout.MinWidth(256), GUILayout.MaxWidth(512));
+            float value = GUILayout.HorizontalSlider(Value, _min, _max, 
+                GUILayout.MinWidth(SLIDER_MIN_WIDTH), 
+                GUILayout.MaxWidth(SLIDER_MAX_WIDTH));
             if (value != Value)
             {
                 Value = (int)value;

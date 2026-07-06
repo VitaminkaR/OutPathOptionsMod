@@ -22,7 +22,7 @@ namespace OutPathOptionsMod.Configuration
 
         private bool _IsChangeKey;
 
-        private Rect _WindowRect = new Rect(100, 100, 512, 680);
+        private Rect _WindowRect = new Rect(100, 100, 720, 680);
 
         private Vector2 scrollPosition;
 
