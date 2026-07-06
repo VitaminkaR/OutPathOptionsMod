@@ -202,8 +202,6 @@ namespace OutPathOptionsMod
             }
         }
 
-        public GameObject GetGameObject() => gameObject;
-
         [HarmonyPatch(typeof(Build_Craft), "Update")]
         private class HarmonyPatch_Craft_Update
         {
