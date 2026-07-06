@@ -108,9 +108,9 @@
     <Compile Include="Configuration\IConfigureObject.cs" />
     <Compile Include="OutPathOptionsMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tweaks\MaxStatsTweak.cs" />
-    <Compile Include="Tweaks\Tweak.cs" />
-    <Compile Include="Tweaks\TweakAttribute.cs" />
+    <Compile Include="Tweak\Tweaks\MaxStatsTweak.cs" />
+    <Compile Include="Tweak\Tweak.cs" />
+    <Compile Include="Tweak\TweakAttribute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
