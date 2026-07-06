@@ -12,6 +12,8 @@ namespace OutPathOptionsMod.Configuration
 {
     public class ConfigurationHandler : MonoBehaviour
     {
+        public const float ELEMENT_SPACE_DIVISION_SIZE = 16;
+
         private CursorLockMode _CursorState;
 
         private bool _CursorVisible;
@@ -135,8 +137,9 @@ namespace OutPathOptionsMod.Configuration
                 foreach (var configuration in tweak.GetConfigurations())
                 {
                     if (!configuration.IsEnabled) continue;
-                    configuration.Draw();
+                    configuration.Draw();   
                 }
+                GUILayout.Space(ELEMENT_SPACE_DIVISION_SIZE);
             }
             GUILayout.EndScrollView();
 
