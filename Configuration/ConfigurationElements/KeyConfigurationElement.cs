@@ -11,9 +11,9 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
 
         private KeyCode _default;
 
-        public KeyboardShortcut Value { get; private set; }
+        public KeyCode Value { get; private set; }
 
-        public event Action<KeyboardShortcut> OnChangeValue;
+        public event Action<KeyCode> OnChangeValue;
 
         private ConfigEntry<KeyboardShortcut> _configEntry;
 
@@ -24,15 +24,15 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
         private KeyConfigurationElement(
             List<ConfigurationElement> configurations, 
             string id,
-            string title,
+            string title, 
             KeyCode defvalue) : base(id)
         {
             configurations.Add(this);
             _title = title;
             _default = defvalue;
             _configEntry = _config.Bind<KeyboardShortcut>("Config", id, new KeyboardShortcut(defvalue));
-            Value = _configEntry.Value;
-            OnChangeValue += (KeyboardShortcut v) => _configEntry.Value = v;
+            Value = _configEntry.Value.MainKey;
+            OnChangeValue += (KeyCode v) => _configEntry.Value = new KeyboardShortcut(v);
         }
 
         public static KeyConfigurationElement Create(
@@ -57,7 +57,7 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
                 _KeyString = "Wait";
                 if (Event.current.isKey)
                 {
-                    Value = new KeyboardShortcut(Event.current.keyCode);
+                    Value = Event.current.keyCode;
                     _IsChangeKey = false;
                     OnChangeValue.Invoke(Value);
                 }
@@ -69,7 +69,7 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
 
             if (GUILayout.Button("Default", GUILayout.MinWidth(DEFAULT_BUTTON_SIZE), GUILayout.MaxWidth(DEFAULT_BUTTON_SIZE)))
             {
-                Value = new KeyboardShortcut(_default);
+                Value = _default;
                 OnChangeValue.Invoke(Value);
             }
             GUILayout.EndHorizontal();
