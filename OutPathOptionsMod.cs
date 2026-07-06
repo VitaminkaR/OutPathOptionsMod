@@ -76,12 +76,12 @@ namespace OutPathOptionsMod
                     tweak.Init(this);
                     Tweaks.Add(tweak);
                     configurationHandler.AddConfigureObject(tweak);
+                    Logger.LogInfo($"\t{attr.Name} init successful!");
                 }
                 catch (Exception e)
                 {
                     Logger.LogError($"\t{attr.Name} init error {e}!");
                 }
-                Logger.LogInfo($"\t{attr.Name} init successful!");
             }
 
             // Player
