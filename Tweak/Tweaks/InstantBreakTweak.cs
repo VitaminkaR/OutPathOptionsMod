@@ -3,7 +3,7 @@ using OutPathOptionsMod.Configuration.ConfigurationElements;
 
 namespace OutPathOptionsMod.Tweaks
 {
-    [Tweak(Name = "InstantBreak")]
+    [Tweak(Name = "InstantBreak", Category = "Player", ID = 2)]
     public class InstantBreakTweak : Tweak
     {
         public override void Init(OutPathOptionsMod plugin)

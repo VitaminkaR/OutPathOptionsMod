@@ -6,5 +6,9 @@ namespace OutPathOptionsMod.Tweaks
     public class TweakAttribute : Attribute
     {
         public string Name;
+
+        public string Category;
+
+        public int ID = 0;
     }
 }

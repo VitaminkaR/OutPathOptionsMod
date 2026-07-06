@@ -15,12 +15,16 @@ namespace OutPathOptionsMod.Tweaks
 
         public List<ConfigurationElement> GetConfigurations() => _configurations;
 
-        public string Name => this.GetType().GetCustomAttribute<TweakAttribute>().Name;
+        public string Name => GetType().GetCustomAttribute<TweakAttribute>().Name;
 
         public virtual void Init(OutPathOptionsMod plugin)
         {
             _harmony = plugin.GetHarmony();
             _configurations = new List<ConfigurationElement>();
         }
+
+        int IConfigureObject.GetID() => GetType().GetCustomAttribute<TweakAttribute>().ID;
+
+        string IConfigureObject.GetCategory() => GetType().GetCustomAttribute<TweakAttribute>().Category;
     }
 }

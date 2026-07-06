@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace OutPathOptionsMod.Tweaks
 {
-    [Tweak(Name = "InstantInteract")]
+    [Tweak(Name = "InstantInteract", Category = "Player", ID = 1)]
     public class InstantInteractTweak : Tweak
     {
         public override void Init(OutPathOptionsMod plugin)

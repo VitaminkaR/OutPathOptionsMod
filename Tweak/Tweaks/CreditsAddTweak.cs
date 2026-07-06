@@ -3,7 +3,7 @@ using OutPathOptionsMod.Configuration.ConfigurationElements;
 
 namespace OutPathOptionsMod.Tweaks
 {
-    [Tweak(Name = "CreditsAdd")]
+    [Tweak(Name = "CreditsAdd", Category = "Player", ID = 3)]
     public class CreditsAddTweak : Tweak
     {
         private static KeyConfigurationElement _key;

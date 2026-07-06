@@ -90,6 +90,9 @@
     <Reference Include="UnityEngine.InputModule">
       <HintPath>.\UnityEngine.InputModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>.\UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>.\UnityEngine.UI.dll</HintPath>
     </Reference>

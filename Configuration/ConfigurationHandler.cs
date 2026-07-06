@@ -1,10 +1,12 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
+using BepInEx.Logging;
 using OutPathOptionsMod.Tweaks;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using UnityEngine;
 
@@ -20,7 +22,7 @@ namespace OutPathOptionsMod.Configuration
 
         private bool _MenuVisible = false;
 
-        private List<IConfigureObject> _ConfigureObjects;
+        private Dictionary<string, List<IConfigureObject>> _ConfigureObjects;
 
         private bool _IsChangeKey;
 
@@ -42,18 +44,17 @@ namespace OutPathOptionsMod.Configuration
 
         static public ConfigurationHandler Create(
             BaseUnityPlugin plugin,
-            List<IConfigureObject> configureObjects = null,
             string MenuHeader = "Configuration Menu",
             KeyCode openMenuKey = KeyCode.F1)
         {
             ConfigurationHandler handler = plugin.gameObject.AddComponent<ConfigurationHandler>();
 
-            handler._ConfigureObjects = configureObjects != null ? configureObjects : new List<IConfigureObject>();
+            handler._ConfigureObjects = new Dictionary<string, List<IConfigureObject>>();
 
             handler.MenuHeader = MenuHeader;
 
             handler.OpenMenuKey = openMenuKey;
-            
+
             Config = new ConfigFile(Path.Combine(Paths.ConfigPath, $"{plugin.GetType().Name}_configuration.cfg"), true);
 
             handler._openMenuKeyEntry = Config.Bind<KeyboardShortcut>("Main", "open_menu", new KeyboardShortcut(openMenuKey));
@@ -63,9 +64,18 @@ namespace OutPathOptionsMod.Configuration
             return handler;
         }
 
-        public void SetConfigureObjects(List<IConfigureObject> objects)
+        public void AddConfigureObject(IConfigureObject obj)
         {
-            _ConfigureObjects = objects;
+            string cat = obj.GetCategory();
+
+            if (string.IsNullOrEmpty(cat)) cat = "Main";
+
+            if (!_ConfigureObjects.ContainsKey(cat))
+                _ConfigureObjects.Add(obj.GetCategory(), new List<IConfigureObject>());
+
+            _ConfigureObjects[cat].Add(obj);
+
+            _ConfigureObjects[cat].Sort((x, y) => x.GetID().CompareTo(y.GetID()));
         }
 
         private void OpenMenu()
@@ -114,21 +124,35 @@ namespace OutPathOptionsMod.Configuration
 
         void DrawMenuWindow(int windowID)
         {
+            GUIStyle centeredStyle = new GUIStyle(GUI.skin.label)
+            {
+                alignment = TextAnchor.MiddleCenter,
+                fontSize = 20,
+                normal = { textColor = Color.white }
+            };
+
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Close")) CloseMenu();
             if (GUILayout.Button($"Change key: [{_KeyString}]")) _IsChangeKey = true;
             GUILayout.EndHorizontal();
 
             scrollPosition = GUILayout.BeginScrollView(scrollPosition);
-            foreach (var tweak in _ConfigureObjects)
+
+            foreach (var key in _ConfigureObjects.Keys)
             {
-                foreach (var configuration in tweak.GetConfigurations())
+                GUILayout.Label($"=========[ {key.ToUpper()} ]=========", centeredStyle);
+
+                foreach (var co in _ConfigureObjects[key])
                 {
-                    if (!configuration.IsEnabled) continue;
-                    configuration.Draw();   
+                    foreach (var configuration in co.GetConfigurations())
+                    {
+                        if (!configuration.IsEnabled) continue;
+                        configuration.Draw();
+                    }
+                    GUILayout.Space(ELEMENT_SPACE_DIVISION_SIZE);
                 }
-                GUILayout.Space(ELEMENT_SPACE_DIVISION_SIZE);
             }
+
             GUILayout.EndScrollView();
 
             GUI.DragWindow();

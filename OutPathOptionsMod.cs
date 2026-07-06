@@ -1,5 +1,6 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
+using BepInEx.Logging;
 using HarmonyLib;
 using OutPathOptionsMod.Configuration;
 using OutPathOptionsMod.Tweaks;
@@ -51,8 +52,7 @@ namespace OutPathOptionsMod
         {
             Logger.LogInfo($"Plugin OPPtionsMod is loaded!");
 
-            List<IConfigureObject> configureObjects = new List<IConfigureObject>();
-            configurationHandler = ConfigurationHandler.Create(this, configureObjects, "TWEAKS MENU");
+            configurationHandler = ConfigurationHandler.Create(this, "TWEAKS MENU");
 
             Logger.LogInfo($"Loading Tweaks...");
             Tweaks = new List<Tweak>();
@@ -69,7 +69,7 @@ namespace OutPathOptionsMod
                     Tweak tweak = (Tweak)gameObject.AddComponent(item);
                     tweak.Init(this);
                     Tweaks.Add(tweak);
-                    configureObjects.Add(tweak);
+                    configurationHandler.AddConfigureObject(tweak);
                 }
                 catch (Exception e)
                 {

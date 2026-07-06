@@ -5,6 +5,8 @@ namespace OutPathOptionsMod.Configuration
 {
     public interface IConfigureObject
     {
+        int GetID();
+        string GetCategory();
         List<ConfigurationElement> GetConfigurations();
     }
 }

@@ -3,7 +3,7 @@ using OutPathOptionsMod.Configuration.ConfigurationElements;
 
 namespace OutPathOptionsMod.Tweaks
 {
-    [Tweak(Name = "MaxStats")]
+    [Tweak(Name = "MaxStats", Category = "Player", ID = 0)]
     public class MaxStatsTweak : Tweak
     {
         public override void Init(OutPathOptionsMod plugin)
