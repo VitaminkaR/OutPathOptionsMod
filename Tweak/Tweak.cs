@@ -2,6 +2,7 @@
 using OutPathOptionsMod.Configuration;
 using OutPathOptionsMod.Configuration.ConfigurationElements;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 namespace OutPathOptionsMod.Tweaks
@@ -13,6 +14,8 @@ namespace OutPathOptionsMod.Tweaks
         protected List<ConfigurationElement> _configurations;
 
         public List<ConfigurationElement> GetConfigurations() => _configurations;
+
+        public string Name => this.GetType().GetCustomAttribute<TweakAttribute>().Name;
 
         public virtual void Init(OutPathOptionsMod plugin)
         {

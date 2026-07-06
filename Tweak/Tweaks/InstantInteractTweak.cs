@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 namespace OutPathOptionsMod.Tweaks
 {
-    [Tweak(Name = "Instant Interact")]
+    [Tweak(Name = "InstantInteract")]
     public class InstantInteractTweak : Tweak
     {
         public override void Init(OutPathOptionsMod plugin)
         {
             base.Init(plugin);
 
-            HeaderConfigurationElement.Create(GetConfigurations(), "instant_interact_header", "Instant Interact");
-            var toggle = BoolConfigurationElement.Create(GetConfigurations(), "instant_interact", "Toggle", false);
+            HeaderConfigurationElement.Create(GetConfigurations(), $"{Name}_header", "Instant Interact");
+            var toggle = BoolConfigurationElement.Create(GetConfigurations(), Name, "Toggle", false);
             Activate(toggle.Value);
             toggle.OnChangeValue += (bool v) => Activate(v);
         }

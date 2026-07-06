@@ -3,15 +3,15 @@ using OutPathOptionsMod.Configuration.ConfigurationElements;
 
 namespace OutPathOptionsMod.Tweaks
 {
-    [Tweak(Name = "Max Stats")]
+    [Tweak(Name = "MaxStats")]
     public class MaxStatsTweak : Tweak
     {
         public override void Init(OutPathOptionsMod plugin)
         {
             base.Init(plugin);
 
-            HeaderConfigurationElement.Create(GetConfigurations(), "max_stats_header", "Infinity Stats");
-            var toggle = BoolConfigurationElement.Create(GetConfigurations(), "max_stats", "Toggle", false);
+            HeaderConfigurationElement.Create(GetConfigurations(), $"{Name}_header", "Infinity Stats");
+            var toggle = BoolConfigurationElement.Create(GetConfigurations(), Name, "Toggle", false);
             Activate(toggle.Value);
             toggle.OnChangeValue += (bool v) => Activate(v);
         }
