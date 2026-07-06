@@ -48,8 +48,14 @@ namespace OutPathOptionsMod
         private ConfigurationHandler configurationHandler;
         public ConfigurationHandler ConfigurationHandler => configurationHandler;
 
+        private static ManualLogSource logger;
+
+        public static ManualLogSource GetLogger => logger;
+
         private void Awake()
         {
+            logger = Logger;
+
             Logger.LogInfo($"Plugin OPPtionsMod is loaded!");
 
             configurationHandler = ConfigurationHandler.Create(this, "TWEAKS MENU");
