@@ -34,7 +34,5 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
         }
 
         public abstract void Draw();
-
-        public virtual void Update() { }
     }
 }

@@ -117,10 +117,5 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
             }
             GUILayout.EndHorizontal();
         }
-
-        public override void Update()
-        {
-            
-        }
     }
 }

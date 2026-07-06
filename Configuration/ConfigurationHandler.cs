@@ -84,18 +84,6 @@ namespace OutPathOptionsMod.Configuration
             _MenuVisible = false;
         }
 
-        private void Update()
-        {
-            foreach (var tweak in _ConfigureObjects)
-            {
-                foreach (var configuration in tweak.GetConfigurations())
-                {
-                    if (!configuration.IsEnabled) continue;
-                    configuration.Update();
-                }
-            }
-        }
-
         private void OnGUI()
         {
             _KeyString = OpenMenuKey.ToString();
