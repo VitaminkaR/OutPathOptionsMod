@@ -79,10 +79,8 @@ namespace OutPathOptionsMod
             }
 
             // Player
-            configCreditsAddKey = ((BaseUnityPlugin)this).Config.Bind<KeyboardShortcut>("Player", "Add Credits Hotkey", new KeyboardShortcut(UnityEngine.KeyCode.Z), "Sets a hotkey, when pressed, credits will be added.");
             configDupeItemInHand = ((BaseUnityPlugin)this).Config.Bind<KeyboardShortcut>("Player", "Dupe Item In Hand", new KeyboardShortcut(UnityEngine.KeyCode.X), "Sets a hotkey, when pressed, the number of items in your hands will increase. Add the item for the dup to your inventory and click on the button.");
             configGetAllItems = ((BaseUnityPlugin)this).Config.Bind<KeyboardShortcut>("Player", "Get All Items", new KeyboardShortcut(UnityEngine.KeyCode.C), "Sets a hotkey, when pressed, all items lying on the ground will be picked up.");
-            configCreditsAddCount = ((BaseUnityPlugin)this).Config.Bind<int>("Player", "Count Credits", 100, $"Sets the number of credits to be added when the {configCreditsAddKey.Value.MainKey} is clicked.");
             // Build
             configInfiniteBattery = ((BaseUnityPlugin)this).Config.Bind<bool>("Builds", "Infinity Battery", false, "Sets whether buildings will work without a charge.");
             configInstantCraft = ((BaseUnityPlugin)this).Config.Bind<bool>("Builds", "Instant Craft", false, "Sets whether the crafting will be instant.");
@@ -121,8 +119,7 @@ namespace OutPathOptionsMod
             {
 
 
-                if (configCreditsAddKey.Value.IsPressed())
-                    __instance.AddCredits(configCreditsAddCount.Value);
+                
 
                 if (configDupeItemInHand.Value.IsPressed())
                     InventoryManager.instance.AddItemToInv(InventoryManager.instance.selectedHotbarSlot.itemInfo, 1);
