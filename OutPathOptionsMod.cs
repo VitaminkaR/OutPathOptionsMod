@@ -22,13 +22,6 @@ namespace OutPathOptionsMod
     {
         public PluginInfo PluginInfo { get; } = new PluginInfo();
 
-        // Player
-        public static ConfigEntry<bool> configInstantInteract;
-        public static ConfigEntry<bool> configInstantPlayerBreak;
-        public static ConfigEntry<KeyboardShortcut> configCreditsAddKey;
-        public static ConfigEntry<KeyboardShortcut> configDupeItemInHand;
-        public static ConfigEntry<KeyboardShortcut> configGetAllItems;
-        public static ConfigEntry<int> configCreditsAddCount;
         // Build
         public static ConfigEntry<bool> configInfiniteBattery;
         public static ConfigEntry<bool> configInstantCraft;
@@ -43,7 +36,6 @@ namespace OutPathOptionsMod
         public List<Tweak> GetTweaks() => Tweaks;
 
         static private bool isWorldLoaded = false;
-        private PlayerGarden playerGarden;
 
         private ConfigurationHandler configurationHandler;
         public ConfigurationHandler ConfigurationHandler => configurationHandler;
@@ -84,9 +76,6 @@ namespace OutPathOptionsMod
                 }
             }
 
-            // Player
-            configDupeItemInHand = ((BaseUnityPlugin)this).Config.Bind<KeyboardShortcut>("Player", "Dupe Item In Hand", new KeyboardShortcut(UnityEngine.KeyCode.X), "Sets a hotkey, when pressed, the number of items in your hands will increase. Add the item for the dup to your inventory and click on the button.");
-            configGetAllItems = ((BaseUnityPlugin)this).Config.Bind<KeyboardShortcut>("Player", "Get All Items", new KeyboardShortcut(UnityEngine.KeyCode.C), "Sets a hotkey, when pressed, all items lying on the ground will be picked up.");
             // Build
             configInfiniteBattery = ((BaseUnityPlugin)this).Config.Bind<bool>("Builds", "Infinity Battery", false, "Sets whether buildings will work without a charge.");
             configInstantCraft = ((BaseUnityPlugin)this).Config.Bind<bool>("Builds", "Instant Craft", false, "Sets whether the crafting will be instant.");
@@ -97,53 +86,16 @@ namespace OutPathOptionsMod
 
         private void Update()
         {
-            if (playerGarden == null)
+            if (!isWorldLoaded)
             {
-                playerGarden = FindObjectOfType<PlayerGarden>();
-                if (isWorldLoaded)
-                    isWorldLoaded = false;
-            }
-            else
-            {
-                if (!isWorldLoaded)
-                {
-                    isWorldLoaded = true;
-                    WorldLoaded();
-                }
+                isWorldLoaded = true;
+                WorldLoaded();
             }
         }
 
         private void WorldLoaded()
         {
             StartCoroutine(SetBuildsMul());
-        }
-
-        [HarmonyPatch(typeof(PlayerGarden), "Update")]
-        private class HarmonyPatch_PlayerGarden_Update
-        {
-            private static void Postfix(PlayerGarden __instance)
-            {
-
-
-                
-
-                if (configDupeItemInHand.Value.IsPressed())
-                    InventoryManager.instance.AddItemToInv(InventoryManager.instance.selectedHotbarSlot.itemInfo, 1);
-
-
-                if (configGetAllItems.Value.IsDown())
-                {
-                    Transform child = SaveDataGarden.instance.objectPoolerTrans.GetChild(2);
-                    for (int i = 0; i < child.childCount; i++)
-                    {
-                        GameObject gameObject = child.GetChild(i).gameObject;
-                        if (gameObject.activeSelf)
-                        {
-                            gameObject.GetComponent<ItemPrefab>().DirectCollect();
-                        }
-                    }
-                }
-            }
         }
 
         private IEnumerator SetBuildsMul()

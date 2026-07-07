@@ -111,6 +111,8 @@
     <Compile Include="Configuration\IConfigureObject.cs" />
     <Compile Include="OutPathOptionsMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tweak\Tweaks\GetAllItemsTweak.cs" />
+    <Compile Include="Tweak\Tweaks\DupeItemTweak.cs" />
     <Compile Include="Tweak\Tweaks\InstantInteractTweak.cs" />
     <Compile Include="Tweak\Tweaks\InstantBreakTweak.cs" />
     <Compile Include="Tweak\Tweaks\CreditsAddTweak.cs" />
