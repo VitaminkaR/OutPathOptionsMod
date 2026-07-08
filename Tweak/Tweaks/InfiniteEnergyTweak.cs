@@ -74,7 +74,7 @@ namespace OutPathOptionsMod.Tweaks
         }
 
         [HarmonyPatch(typeof(Build_OreExtractor), "Update_Extracting")]
-        private class InfiniteEnergyPatches_OreExtractor_Update_Extracting
+        private class InfiniteEnergyPatches_OreExtractor
         {
             private static void Prefix(Build_OreExtractor __instance)
             {
