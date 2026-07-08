@@ -24,12 +24,17 @@ namespace OutPathOptionsMod.Tweaks
         {
             if (v)
             {
-                Assembly assembly = Assembly.GetExecutingAssembly();
-                var types = assembly.GetTypes().Where(t => t.Name.StartsWith("InfiniteEnergyPatches_"));
-                foreach (var type in types)
-                {
-                    _harmony.PatchAll(type);
-                }
+                _harmony.PatchAll(InfiniteEnergyPatches_WearStation);
+                _harmony.PatchAll(InfiniteEnergyPatches_BreakerManual);
+                _harmony.PatchAll(InfiniteEnergyPatches_ChlorophyllConverter);
+                _harmony.PatchAll(InfiniteEnergyPatches_ChlorophyllExtractor);
+                _harmony.PatchAll(InfiniteEnergyPatches_OreExtractor);
+                _harmony.PatchAll(InfiniteEnergyPatches_Slayer);
+                _harmony.PatchAll(InfiniteEnergyPatches_SoilMiner);
+                _harmony.PatchAll(InfiniteEnergyPatches_SoilMinerV2);
+                _harmony.PatchAll(InfiniteEnergyPatches_Trapper);
+                _harmony.PatchAll(InfiniteEnergyPatches_Vaporizer);
+                _harmony.PatchAll(InfiniteEnergyPatches_WaterPump);
             }
             else
             {
