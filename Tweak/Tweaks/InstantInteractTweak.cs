@@ -21,10 +21,8 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Postfix(PlayerGarden __instance)
             {
-                OutPathOptionsMod.GetLogger.LogWarning("Схуяли 1");
                 if (!_toggle.Value) return;
                 __instance.healthyStateIncreaseMult = 0;
-                OutPathOptionsMod.GetLogger.LogWarning("Схуяли 2");
             }
         }
     }
