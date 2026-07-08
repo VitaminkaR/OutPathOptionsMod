@@ -8,22 +8,14 @@ namespace OutPathOptionsMod.Tweaks
     [Tweak(Name = "InstantCraft", Category = "Builds", ID = 0)]
     public class InstantCraftTweak : Tweak
     {
+        private static BoolConfigurationElement _toggle;
+
         public override void Init(OutPathOptionsMod plugin)
         {
             base.Init(plugin);
 
             HeaderConfigurationElement.Create(GetConfigurations(), $"{Name}_header", "[INSTANT CRAFT]");
-            var toggle = BoolConfigurationElement.Create(GetConfigurations(), Name, "Toggle", false);
-            Activate(toggle.Value);
-            toggle.OnChangeValue += (bool v) => Activate(v);
-        }
-
-        private void Activate(bool v)
-        {
-            if (v)
-                _harmony.PatchAll(typeof(InstantCraftPatches));
-            else
-                _harmony.UnpatchSelf();
+            _toggle = BoolConfigurationElement.Create(GetConfigurations(), Name, "Toggle", false);
         }
 
         [HarmonyPatch(typeof(Build_Craft), "Update")]
@@ -31,7 +23,8 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_Craft __instance)
             {
-                __instance._timeToCraft = 0;
+                if(_toggle.Value)
+                    __instance._timeToCraft = 0;
             }
         }
     }

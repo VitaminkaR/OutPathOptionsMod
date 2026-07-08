@@ -10,36 +10,14 @@ namespace OutPathOptionsMod.Tweaks
     [Tweak(Name = "InfiniteEnergy", Category = "Builds", ID = 1)]
     public class InfiniteEnergyTweak : Tweak
     {
+        private static BoolConfigurationElement _toggle;
+
         public override void Init(OutPathOptionsMod plugin)
         {
             base.Init(plugin);
 
             HeaderConfigurationElement.Create(GetConfigurations(), $"{Name}_header", "[INFINITE ENERGY]");
-            var toggle = BoolConfigurationElement.Create(GetConfigurations(), Name, "Toggle", false);
-            Activate(toggle.Value);
-            toggle.OnChangeValue += (bool v) => Activate(v);
-        }
-
-        private void Activate(bool v)
-        {
-            if (v)
-            {
-                _harmony.PatchAll(typeof(InfiniteEnergyPatches_WearStation));
-                _harmony.PatchAll(typeof(InfiniteEnergyPatches_BreakerManual));
-                _harmony.PatchAll(typeof(InfiniteEnergyPatches_ChlorophyllConverter));
-                _harmony.PatchAll(typeof(InfiniteEnergyPatches_ChlorophyllExtractor));
-                _harmony.PatchAll(typeof(InfiniteEnergyPatches_OreExtractor));
-                _harmony.PatchAll(typeof(InfiniteEnergyPatches_Slayer));
-                _harmony.PatchAll(typeof(InfiniteEnergyPatches_SoilMiner));
-                _harmony.PatchAll(typeof(InfiniteEnergyPatches_SoilMinerV2));
-                _harmony.PatchAll(typeof(InfiniteEnergyPatches_Trapper));
-                _harmony.PatchAll(typeof(InfiniteEnergyPatches_Vaporizer));
-                _harmony.PatchAll(typeof(InfiniteEnergyPatches_WaterPump));
-            }
-            else
-            {
-                _harmony.UnpatchSelf();
-            }
+            _toggle = BoolConfigurationElement.Create(GetConfigurations(), Name, "Toggle", false);
         }
 
         [HarmonyPatch(typeof(Build_WearStation), "UseEnergy")]
@@ -47,7 +25,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_WearStation __instance)
             {
-                __instance.energy = __instance.maxEnergy;
+                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
             }
         }
 
@@ -56,7 +34,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_BreakerManual __instance)
             {
-                __instance.energy = __instance.maxEnergy;
+                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
             }
         }
 
@@ -65,7 +43,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_ChlorophyllConverter __instance)
             {
-                __instance.energy = __instance.maxEnergy;
+                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
             }
         }
 
@@ -74,7 +52,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_ChlorophyllExtractor __instance)
             {
-                __instance.energy = __instance.maxEnergy;
+                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
             }
         }
 
@@ -83,7 +61,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_OreExtractor __instance)
             {
-                __instance.energy = __instance.maxEnergy;
+                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
             }
         }
 
@@ -92,7 +70,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_SlayerManual __instance)
             {
-                __instance.energy = __instance.maxEnergy;
+                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
             }
         }
 
@@ -101,7 +79,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_SoilMiner __instance)
             {
-                __instance.energy = __instance.maxEnergy;
+                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
             }
         }
 
@@ -110,7 +88,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_SoilMinerV2 __instance)
             {
-                __instance.energy = __instance.maxEnergy;
+                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
             }
         }
 
@@ -119,7 +97,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_Trapper __instance)
             {
-                __instance.energy = __instance.maxEnergy;
+                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
             }
         }
 
@@ -128,7 +106,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_Vaporizer __instance)
             {
-                __instance.energy = __instance.maxEnergy;
+                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
             }
         }
 
@@ -137,7 +115,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_WaterPump_Manual __instance)
             {
-                __instance.energy = __instance.maxEnergy;
+                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
             }
         }
     }

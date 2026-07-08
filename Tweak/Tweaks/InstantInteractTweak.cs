@@ -6,22 +6,14 @@ namespace OutPathOptionsMod.Tweaks
     [Tweak(Name = "InstantInteract", Category = "Player", ID = 1)]
     public class InstantInteractTweak : Tweak
     {
+        private static BoolConfigurationElement _toggle;
+
         public override void Init(OutPathOptionsMod plugin)
         {
             base.Init(plugin);
 
             HeaderConfigurationElement.Create(GetConfigurations(), $"{Name}_header", "[INSTANT INTERACT]");
-            var toggle = BoolConfigurationElement.Create(GetConfigurations(), Name, "Toggle", false);
-            Activate(toggle.Value);
-            toggle.OnChangeValue += (bool v) => Activate(v);
-        }
-
-        private void Activate(bool v)
-        {
-            if (v)
-                _harmony.PatchAll(typeof(InstantInteractPatches));
-            else
-                _harmony.UnpatchSelf();
+            _toggle = BoolConfigurationElement.Create(GetConfigurations(), Name, "Toggle", false);
         }
 
         [HarmonyPatch(typeof(PlayerGarden), "Update")]
@@ -29,7 +21,10 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Postfix(PlayerGarden __instance)
             {
+                OutPathOptionsMod.GetLogger.LogWarning("Схуяли 1");
+                if (!_toggle.Value) return;
                 __instance.healthyStateIncreaseMult = 0;
+                OutPathOptionsMod.GetLogger.LogWarning("Схуяли 2");
             }
         }
     }

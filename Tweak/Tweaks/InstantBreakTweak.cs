@@ -6,22 +6,14 @@ namespace OutPathOptionsMod.Tweaks
     [Tweak(Name = "InstantBreak", Category = "Player", ID = 2)]
     public class InstantBreakTweak : Tweak
     {
+        private static BoolConfigurationElement _toggle;
+
         public override void Init(OutPathOptionsMod plugin)
         {
             base.Init(plugin);
 
             HeaderConfigurationElement.Create(GetConfigurations(), $"{Name}_header", "[INSTANT BREAK]");
-            var toggle = BoolConfigurationElement.Create(GetConfigurations(), Name, "Toggle", false);
-            Activate(toggle.Value);
-            toggle.OnChangeValue += (bool v) => Activate(v);
-        }
-
-        private void Activate(bool v)
-        {
-            if (v)
-                _harmony.PatchAll(typeof(InstantBreakPatches));
-            else
-                _harmony.UnpatchSelf();
+            _toggle = BoolConfigurationElement.Create(GetConfigurations(), Name, "Toggle", false);
         }
 
         [HarmonyPatch(typeof(TakeOutResource), "TryTakeOut_General")]
@@ -29,7 +21,8 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(TakeOutResource __instance)
             {
-                __instance.currHealth = 0;
+                if(_toggle.Value)
+                    __instance.currHealth = 0;
             }
         }
     }

@@ -18,8 +18,6 @@ namespace OutPathOptionsMod.Tweaks
             HeaderConfigurationElement.Create(GetConfigurations(), $"{Name}_header", "[ADD CREDITS]");
             _key = KeyConfigurationElement.Create(GetConfigurations(), Name + "_toggle", "Add Key", KeyCode.P);
             _value = IntConfigurationElement.Create(GetConfigurations(), Name + "_credits", "Count", 100, 0, int.MaxValue);
-
-            _harmony.PatchAll(typeof(CreditsAddPatches));
         }
 
         [HarmonyPatch(typeof(PlayerGarden), "Update")]

@@ -27,7 +27,6 @@ namespace OutPathOptionsMod
         public static ConfigEntry<float> configSpeedMult;
 
         static private Harmony harmony = new Harmony("com.vrcompany.outpath.optionsmod");
-        public Harmony GetHarmony() => harmony;
 
         static public List<Tweak> Tweaks;
         public List<Tweak> GetTweaks() => Tweaks;
@@ -72,6 +71,12 @@ namespace OutPathOptionsMod
                     Logger.LogError($"\t{attr.Name} init error {e}!");
                 }
             }
+
+            Logger.LogInfo("Patching...");
+
+            harmony.PatchAll();
+
+            Logger.LogInfo("Patching done!");
 
             // Build
             configRadiusMult = ((BaseUnityPlugin)this).Config.Bind<float>("Builds", "Radius Mutiplier", 0, "Sets the radius of buildings (0 - off) !Setting up requires restarting the world!.");
