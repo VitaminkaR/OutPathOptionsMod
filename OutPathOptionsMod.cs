@@ -24,7 +24,6 @@ namespace OutPathOptionsMod
 
         // Build
         public static ConfigEntry<bool> configInfiniteBattery;
-        public static ConfigEntry<bool> configInstantCraft;
         public static ConfigEntry<bool> configInstantBreak;
         public static ConfigEntry<float> configRadiusMult;
         public static ConfigEntry<float> configSpeedMult;
@@ -78,7 +77,6 @@ namespace OutPathOptionsMod
 
             // Build
             configInfiniteBattery = ((BaseUnityPlugin)this).Config.Bind<bool>("Builds", "Infinity Battery", false, "Sets whether buildings will work without a charge.");
-            configInstantCraft = ((BaseUnityPlugin)this).Config.Bind<bool>("Builds", "Instant Craft", false, "Sets whether the crafting will be instant.");
             configInstantBreak = ((BaseUnityPlugin)this).Config.Bind<bool>("Builds", "Instant Break", false, "Sets whether mining buildings will instantly break down objects.");
             configRadiusMult = ((BaseUnityPlugin)this).Config.Bind<float>("Builds", "Radius Mutiplier", 0, "Sets the radius of buildings (0 - off) !Setting up requires restarting the world!.");
             configSpeedMult = ((BaseUnityPlugin)this).Config.Bind<float>("Builds", "Speed Mutiplier", 0, "Sets an increase in the speed of buildings by n times (0 - off) !Setting up requires restarting the world!.");
@@ -154,16 +152,6 @@ namespace OutPathOptionsMod
 
                     }
                 }
-            }
-        }
-
-        [HarmonyPatch(typeof(Build_Craft), "Update")]
-        private class HarmonyPatch_Craft_Update
-        {
-            private static void Postfix(Build_Craft __instance)
-            {
-                if (configInstantCraft.Value)
-                    __instance._timeToCraft = 0;
             }
         }
 
