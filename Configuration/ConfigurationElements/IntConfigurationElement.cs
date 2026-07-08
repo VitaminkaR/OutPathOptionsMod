@@ -15,7 +15,26 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
 
         private int _max;
 
-        public int Value { get; private set; }
+        public int Value
+        {
+            get
+            {
+                if (_configEntry != null)
+                {
+                    return _configEntry.Value;
+                }
+                else
+                {
+                    return _default;
+                }
+            }
+
+            private set
+            {
+                _configEntry.Value = value;
+                OnChangeValue(value);
+            }
+        }
 
         public event Action<int> OnChangeValue;
 
@@ -28,7 +47,7 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
         private ConfigEntry<int> _configEntry;
 
         private IntConfigurationElement(
-            List<ConfigurationElement> configurations, 
+            List<ConfigurationElement> configurations,
             string id,
             string title,
             int defvalue,
@@ -42,8 +61,6 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
             _min = min;
             _max = max;
             _configEntry = _config.Bind<int>("Config", id, defvalue);
-            Value = _configEntry.Value;
-            OnChangeValue += (int v) => _configEntry.Value = v;
             _slider = slider;
         }
 
@@ -88,11 +105,14 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
                         Value = _default;
                     }
 
-                    if (Value > _max) Value = _max;
-                    else
-                        if (Value < _min) Value = _min;
-
-                    OnChangeValue.Invoke(Value);
+                    if (Value > _max)
+                    {
+                        Value = _max;
+                    }
+                    else if (Value < _min)
+                    {
+                        Value = _min;
+                    }
                 }
             }
 
@@ -104,14 +124,12 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
                 if (value != Value)
                 {
                     Value = (int)value;
-                    OnChangeValue.Invoke(Value);
                 }
             }
 
             if (GUILayout.Button("Default", GUILayout.MinWidth(DEFAULT_BUTTON_SIZE), GUILayout.MaxWidth(DEFAULT_BUTTON_SIZE)))
             {
                 Value = _default;
-                OnChangeValue.Invoke(Value);
             }
             GUILayout.EndHorizontal();
         }

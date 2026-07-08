@@ -11,7 +11,26 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
 
         private KeyCode _default;
 
-        public KeyCode Value { get; private set; }
+        public KeyCode Value
+        {
+            get
+            {
+                if (_configEntry != null)
+                {
+                    return _configEntry.Value.MainKey;
+                }
+                else
+                {
+                    return _default;
+                }
+            }
+
+            private set
+            {
+                _configEntry.Value = new KeyboardShortcut(value);
+                OnChangeValue(value);
+            }
+        }
 
         public event Action<KeyCode> OnChangeValue;
 
@@ -22,17 +41,15 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
         private string _KeyString;
 
         private KeyConfigurationElement(
-            List<ConfigurationElement> configurations, 
+            List<ConfigurationElement> configurations,
             string id,
-            string title, 
+            string title,
             KeyCode defvalue) : base(id)
         {
             configurations.Add(this);
             _title = title;
             _default = defvalue;
             _configEntry = _config.Bind<KeyboardShortcut>("Config", id, new KeyboardShortcut(defvalue));
-            Value = _configEntry.Value.MainKey;
-            OnChangeValue += (KeyCode v) => _configEntry.Value = new KeyboardShortcut(v);
         }
 
         public static KeyConfigurationElement Create(
@@ -59,7 +76,6 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
                 {
                     Value = Event.current.keyCode;
                     _IsChangeKey = false;
-                    OnChangeValue.Invoke(Value);
                 }
             }
             else
@@ -70,7 +86,6 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
             if (GUILayout.Button("Default", GUILayout.MinWidth(DEFAULT_BUTTON_SIZE), GUILayout.MaxWidth(DEFAULT_BUTTON_SIZE)))
             {
                 Value = _default;
-                OnChangeValue.Invoke(Value);
             }
             GUILayout.EndHorizontal();
         }

@@ -11,24 +11,41 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
 
         private bool _default;
 
-        public bool Value { get; private set; }
+        public bool Value
+        {
+            get
+            {
+                if (_configEntry != null)
+                {
+                    return _configEntry.Value;
+                }
+                else
+                {
+                    return _default;
+                }
+            }
+
+            private set
+            {
+                _configEntry.Value = value;
+                OnChangeValue(value);
+            }
+        }
 
         public event Action<bool> OnChangeValue;
 
         private ConfigEntry<bool> _configEntry;
 
         private BoolConfigurationElement(
-            List<ConfigurationElement> configurations, 
+            List<ConfigurationElement> configurations,
             string id,
-            string title, 
+            string title,
             bool defvalue) : base(id)
         {
             configurations.Add(this);
             _title = title;
             _default = defvalue;
             _configEntry = _config.Bind<bool>("Config", id, defvalue);
-            Value = _configEntry.Value;
-            OnChangeValue += (bool v) => _configEntry.Value = v;
         }
 
         public static BoolConfigurationElement Create(
@@ -48,13 +65,11 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
             if (value != Value)
             {
                 Value = value;
-                OnChangeValue.Invoke(Value);
             }
 
             if (GUILayout.Button("Default", GUILayout.MinWidth(DEFAULT_BUTTON_SIZE), GUILayout.MaxWidth(DEFAULT_BUTTON_SIZE)))
             {
                 Value = _default;
-                OnChangeValue.Invoke(Value);
             }
             GUILayout.EndHorizontal();
         }

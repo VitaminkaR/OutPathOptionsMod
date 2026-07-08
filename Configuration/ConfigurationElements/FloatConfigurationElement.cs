@@ -15,7 +15,26 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
 
         private float _max;
 
-        public float Value { get; private set; }
+        public float Value
+        {
+            get
+            {
+                if (_configEntry != null)
+                {
+                    return _configEntry.Value;
+                }
+                else
+                {
+                    return _default;
+                }
+            }
+
+            private set
+            {
+                _configEntry.Value = value;
+                OnChangeValue(value);
+            }
+        }
 
         private bool _isFocused = false;
 
@@ -42,8 +61,6 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
             _min = min;
             _max = max;
             _configEntry = _config.Bind<float>("Config", id, defvalue);
-            Value = _configEntry.Value;
-            OnChangeValue += (float v) => _configEntry.Value = v;
             _slider = slider;
         }
 
@@ -90,11 +107,14 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
                         Value = _default;
                     }
 
-                    if (Value > _max) Value = _max;
-                    else
-                        if (Value < _min) Value = _min;
-
-                    OnChangeValue.Invoke(Value);
+                    if (Value > _max)
+                    {
+                        Value = _max;
+                    }
+                    else if (Value < _min)
+                    {
+                        Value = _min;
+                    }
                 }
             }
 
@@ -106,14 +126,12 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
                 if (value != Value)
                 {
                     Value = value;
-                    OnChangeValue.Invoke(Value);
                 }
             }
 
             if (GUILayout.Button("Default", GUILayout.MinWidth(DEFAULT_BUTTON_SIZE), GUILayout.MaxWidth(DEFAULT_BUTTON_SIZE)))
             {
                 Value = _default;
-                OnChangeValue.Invoke(Value);
             }
             GUILayout.EndHorizontal();
         }
