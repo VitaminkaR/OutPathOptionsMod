@@ -29,7 +29,7 @@ namespace OutPathOptionsMod.Tweaks
         [HarmonyPatch(typeof(Build_Craft), "Update")]
         private static class InstantCraftPatches
         {
-            private static void Postfix(Build_Craft __instance)
+            private static void Prefix(Build_Craft __instance)
             {
                 __instance._timeToCraft = 0;
             }
