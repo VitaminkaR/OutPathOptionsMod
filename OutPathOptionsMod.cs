@@ -23,7 +23,6 @@ namespace OutPathOptionsMod
         public PluginInfo PluginInfo { get; } = new PluginInfo();
 
         // Build
-        public static ConfigEntry<bool> configInstantBreak;
         public static ConfigEntry<float> configRadiusMult;
         public static ConfigEntry<float> configSpeedMult;
 
@@ -75,7 +74,6 @@ namespace OutPathOptionsMod
             }
 
             // Build
-            configInstantBreak = ((BaseUnityPlugin)this).Config.Bind<bool>("Builds", "Instant Break", false, "Sets whether mining buildings will instantly break down objects.");
             configRadiusMult = ((BaseUnityPlugin)this).Config.Bind<float>("Builds", "Radius Mutiplier", 0, "Sets the radius of buildings (0 - off) !Setting up requires restarting the world!.");
             configSpeedMult = ((BaseUnityPlugin)this).Config.Bind<float>("Builds", "Speed Mutiplier", 0, "Sets an increase in the speed of buildings by n times (0 - off) !Setting up requires restarting the world!.");
         }
@@ -133,21 +131,6 @@ namespace OutPathOptionsMod
                                 }
                             }
                         }
-
-                        if (configInstantBreak.Value)
-                        {
-                            foreach (var field in type.GetFields())
-                            {
-                                if (field.Name.StartsWith("minDamage") || field.Name.StartsWith("maxDamage"))
-                                {
-                                    foreach (var obj in FindObjectsOfType(type))
-                                    {
-                                        field.SetValue(obj, 999999);
-                                    }
-                                }
-                            }
-                        }
-
                     }
                 }
             }
