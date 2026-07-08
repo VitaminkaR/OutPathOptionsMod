@@ -98,7 +98,7 @@ namespace OutPathOptionsMod
         {
             yield return new WaitForSeconds(1);
 
-            if (configRadiusMult.Value != 0 || configSpeedMult.Value != 0 || configInstantBreak.Value || configInfiniteBattery.Value)
+            if (configRadiusMult.Value != 0 || configSpeedMult.Value != 0)
             {
                 Assembly asm = Assembly.GetAssembly(typeof(GameManager));
                 foreach (var type in asm.GetTypes())
