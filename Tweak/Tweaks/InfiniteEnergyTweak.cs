@@ -24,17 +24,17 @@ namespace OutPathOptionsMod.Tweaks
         {
             if (v)
             {
-                _harmony.PatchAll(InfiniteEnergyPatches_WearStation);
-                _harmony.PatchAll(InfiniteEnergyPatches_BreakerManual);
-                _harmony.PatchAll(InfiniteEnergyPatches_ChlorophyllConverter);
-                _harmony.PatchAll(InfiniteEnergyPatches_ChlorophyllExtractor);
-                _harmony.PatchAll(InfiniteEnergyPatches_OreExtractor);
-                _harmony.PatchAll(InfiniteEnergyPatches_Slayer);
-                _harmony.PatchAll(InfiniteEnergyPatches_SoilMiner);
-                _harmony.PatchAll(InfiniteEnergyPatches_SoilMinerV2);
-                _harmony.PatchAll(InfiniteEnergyPatches_Trapper);
-                _harmony.PatchAll(InfiniteEnergyPatches_Vaporizer);
-                _harmony.PatchAll(InfiniteEnergyPatches_WaterPump);
+                _harmony.PatchAll(typeof(InfiniteEnergyPatches_WearStation));
+                _harmony.PatchAll(typeof(InfiniteEnergyPatches_BreakerManual));
+                _harmony.PatchAll(typeof(InfiniteEnergyPatches_ChlorophyllConverter));
+                _harmony.PatchAll(typeof(InfiniteEnergyPatches_ChlorophyllExtractor));
+                _harmony.PatchAll(typeof(InfiniteEnergyPatches_OreExtractor));
+                _harmony.PatchAll(typeof(InfiniteEnergyPatches_Slayer));
+                _harmony.PatchAll(typeof(InfiniteEnergyPatches_SoilMiner));
+                _harmony.PatchAll(typeof(InfiniteEnergyPatches_SoilMinerV2));
+                _harmony.PatchAll(typeof(InfiniteEnergyPatches_Trapper));
+                _harmony.PatchAll(typeof(InfiniteEnergyPatches_Vaporizer));
+                _harmony.PatchAll(typeof(InfiniteEnergyPatches_WaterPump));
             }
             else
             {
