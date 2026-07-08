@@ -18,10 +18,6 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
 
         private ConfigEntry<bool> _isEnabledEntry;
 
-        public void Enable() => IsEnabled = true;
-
-        public void Disable() => IsEnabled = false;
-
         public ConfigurationElement(string id)
         {
             _config = ConfigurationHandler.Config;
