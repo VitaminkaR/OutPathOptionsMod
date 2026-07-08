@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using BepInEx.Logging;
+using HarmonyLib;
 using OutPathOptionsMod.Configuration;
 using OutPathOptionsMod.Configuration.ConfigurationElements;
 using System.Collections.Generic;
@@ -15,9 +16,12 @@ namespace OutPathOptionsMod.Tweaks
 
         public string Name => GetType().GetCustomAttribute<TweakAttribute>().Name;
 
+        public ManualLogSource Logger { get; private set; }
+
         public virtual void Init(OutPathOptionsMod plugin)
         {
             _configurations = new List<ConfigurationElement>();
+            Logger = OutPathOptionsMod.GetLogger;
         }
 
         int IConfigureObject.GetID() => GetType().GetCustomAttribute<TweakAttribute>().ID;
