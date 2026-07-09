@@ -13,7 +13,7 @@ namespace OutPathOptionsMod.Tweaks
             base.Init(plugin);
 
             HeaderConfigurationElement.Create(GetConfigurations(), $"{Name}_header", "[DESTROY ALL]");
-            _key = KeyConfigurationElement.Create(GetConfigurations(), Name + "_toggle", "Add Key", KeyCode.None);
+            _key = KeyConfigurationElement.Create(GetConfigurations(), Name + "_toggle", "Destroy Key", KeyCode.None);
             ButtonConfigurationElement.Create(GetConfigurations(), Name + "_button", "Destroy").OnChangeValue += Destroy;
         }
 
