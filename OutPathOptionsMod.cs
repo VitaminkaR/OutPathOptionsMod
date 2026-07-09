@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace OutPathOptionsMod
 {
-    [BepInPlugin("com.vrcompany.outpath.optionsmod", "OutPath Options Mod", "0.2.1")]
+    [BepInPlugin("com.vrcompany.outpath.optionsmod", "OutPath Options Mod", "0.2.2")]
     public class OutPathOptionsMod : BaseUnityPlugin
     {
         public PluginInfo PluginInfo { get; } = new PluginInfo();
