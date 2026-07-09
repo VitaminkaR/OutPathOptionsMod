@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace OutPathOptionsMod.Tweaks
 {
-    [Tweak(Name = "PickupItems", Category = "Player", ID = 5)]
-    public class PickupItemsTweak : Tweak
+    [Tweak(Name = "GetItems", Category = "Player", ID = 5)]
+    public class GetItemsTweak : Tweak
     {
         private static KeyConfigurationElement _key;
 
@@ -12,8 +12,8 @@ namespace OutPathOptionsMod.Tweaks
         {
             base.Init(plugin);
 
-            HeaderConfigurationElement.Create(GetConfigurations(), $"{Name}_header", "[PICKUP ITEMS]");
-            _key = KeyConfigurationElement.Create(GetConfigurations(), Name + "_toggle", "Pickup Key", KeyCode.C);
+            HeaderConfigurationElement.Create(GetConfigurations(), $"{Name}_header", "[GET ITEMS]");
+            _key = KeyConfigurationElement.Create(GetConfigurations(), Name + "_toggle", "Get Key", KeyCode.C);
         }
 
         private void Update()
