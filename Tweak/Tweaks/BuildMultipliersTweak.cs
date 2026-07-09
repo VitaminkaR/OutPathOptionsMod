@@ -17,8 +17,6 @@ namespace OutPathOptionsMod.Tweaks
         private static BoolConfigurationElement _toggleRadius;
         private static FloatConfigurationElement _radiusMultiplier;
 
-        private static ManualLogSource _logger;
-
         public override void Init(OutPathOptionsMod plugin)
         {
             base.Init(plugin);
