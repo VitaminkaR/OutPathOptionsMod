@@ -113,6 +113,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tweak\Tweaks\InfiniteEnergyTweak.cs" />
     <Compile Include="Tweak\Tweaks\InstantBuildBreakTweak.cs" />
+    <Compile Include="Tweak\Tweaks\BuildMultipliersTweak.cs" />
     <Compile Include="Tweak\Tweaks\InstantCraftTweak.cs" />
     <Compile Include="Tweak\Tweaks\GetAllItemsTweak.cs" />
     <Compile Include="Tweak\Tweaks\DupeItemTweak.cs" />
