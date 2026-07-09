@@ -20,9 +20,9 @@ namespace OutPathOptionsMod
     {
         public PluginInfo PluginInfo { get; } = new PluginInfo();
 
-        static private Harmony harmony = new Harmony("com.vrcompany.outpath.optionsmod");
+        private static Harmony harmony = new Harmony("com.vrcompany.outpath.optionsmod");
 
-        static public List<Tweak> Tweaks;
+        public static List<Tweak> Tweaks;
 
         private ConfigurationHandler configurationHandler;
         public ConfigurationHandler ConfigurationHandler => configurationHandler;

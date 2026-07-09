@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace OutPathOptionsMod.Configuration.ConfigurationElements
@@ -9,7 +8,7 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
         private string _title;
 
         private HeaderConfigurationElement(
-            List<ConfigurationElement> configurations, 
+            List<ConfigurationElement> configurations,
             string id,
             string title) : base(id)
         {
@@ -18,7 +17,7 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
         }
 
         public static HeaderConfigurationElement Create(
-            List<ConfigurationElement> configurations, 
+            List<ConfigurationElement> configurations,
             string id,
             string title)
         {

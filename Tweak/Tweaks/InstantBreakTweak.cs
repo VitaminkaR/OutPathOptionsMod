@@ -21,7 +21,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(TakeOutResource __instance)
             {
-                if(_toggle.Value)
+                if (_toggle.Value)
                     __instance.currHealth = 0;
             }
         }

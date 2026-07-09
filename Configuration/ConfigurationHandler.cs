@@ -1,13 +1,8 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
-using BepInEx.Logging;
-using OutPathOptionsMod.Tweaks;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Text;
 using UnityEngine;
 
 namespace OutPathOptionsMod.Configuration
@@ -42,7 +37,7 @@ namespace OutPathOptionsMod.Configuration
 
         private event Action<KeyCode> _onChangeOpenMenuKey;
 
-        static public ConfigurationHandler Create(
+        public static ConfigurationHandler Create(
             BaseUnityPlugin plugin,
             string MenuHeader = "Configuration Menu",
             KeyCode openMenuKey = KeyCode.F1)
@@ -127,7 +122,7 @@ namespace OutPathOptionsMod.Configuration
             }
         }
 
-        void DrawMenuWindow(int windowID)
+        private void DrawMenuWindow(int windowID)
         {
             GUIStyle centeredStyle = new GUIStyle(GUI.skin.label)
             {

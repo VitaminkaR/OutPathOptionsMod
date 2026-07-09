@@ -119,7 +119,7 @@ namespace OutPathOptionsMod.Tweaks
                             var field = radiusFields[i];
 
                             Logger.LogInfo($"\t\t{type.Name} {field.Name} postfix generate...");
-                            
+
                             sw.WriteLine("\t\tif (_toggleRadius.Value)");
                             sw.WriteLine($"\t\t\t__instance.{field.Name} /= _radiusMultiplier.Value;");
 

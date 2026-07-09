@@ -1,5 +1,4 @@
-﻿using HarmonyLib;
-using OutPathOptionsMod.Configuration.ConfigurationElements;
+﻿using OutPathOptionsMod.Configuration.ConfigurationElements;
 
 namespace OutPathOptionsMod.Tweaks
 {

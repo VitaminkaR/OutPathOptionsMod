@@ -1,7 +1,5 @@
-﻿using HarmonyLib;
-using OutPathOptionsMod.Configuration.ConfigurationElements;
+﻿using OutPathOptionsMod.Configuration.ConfigurationElements;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace OutPathOptionsMod.Tweaks
 {

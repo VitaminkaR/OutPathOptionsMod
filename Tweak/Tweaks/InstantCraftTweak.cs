@@ -1,7 +1,5 @@
 ﻿using HarmonyLib;
 using OutPathOptionsMod.Configuration.ConfigurationElements;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace OutPathOptionsMod.Tweaks
 {
@@ -23,7 +21,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_Craft __instance)
             {
-                if(_toggle.Value)
+                if (_toggle.Value)
                     __instance._timeToCraft = 0;
             }
         }

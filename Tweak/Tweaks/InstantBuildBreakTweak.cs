@@ -1,10 +1,5 @@
 ﻿using HarmonyLib;
 using OutPathOptionsMod.Configuration.ConfigurationElements;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace OutPathOptionsMod.Tweaks
 {
@@ -26,7 +21,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_SlayerManual __instance)
             {
-                if(!_toggle.Value) return;
+                if (!_toggle.Value) return;
                 __instance.minDamage = int.MaxValue;
                 __instance.maxDamage = int.MaxValue;
             }

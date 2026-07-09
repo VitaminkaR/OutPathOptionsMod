@@ -1,5 +1,4 @@
 ﻿using BepInEx.Logging;
-using HarmonyLib;
 using OutPathOptionsMod.Configuration;
 using OutPathOptionsMod.Configuration.ConfigurationElements;
 using System.Collections.Generic;
