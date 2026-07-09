@@ -31,8 +31,13 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
 
             private set
             {
-                _configEntry.Value = value;
-                OnChangeValue(value);
+                int _value = value;
+                if (_value > _max)
+                    _value = _max;
+                else if (_value < _min)
+                    _value = _min;
+                _configEntry.Value = _value;
+                OnChangeValue?.Invoke(_value);
             }
         }
 
@@ -113,15 +118,6 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
                     else
                     {
                         Value = _default;
-                    }
-
-                    if (Value > _max)
-                    {
-                        Value = _max;
-                    }
-                    else if (Value < _min)
-                    {
-                        Value = _min;
                     }
                 }
             }
