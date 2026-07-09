@@ -6,7 +6,7 @@ namespace OutPathOptionsMod.Tweaks
     [Tweak(Name = "MaxStats", Category = "Player", ID = 0)]
     public class MaxStatsTweak : Tweak
     {
-        private static BoolConfigurationElement _toggle;
+        private BoolConfigurationElement _toggle;
 
         public override void Init(OutPathOptionsMod plugin)
         {
@@ -16,18 +16,19 @@ namespace OutPathOptionsMod.Tweaks
             _toggle = BoolConfigurationElement.Create(GetConfigurations(), Name, "Toggle", false);
         }
 
-        [HarmonyPatch(typeof(PlayerGarden), "Update")]
-        private static class MaxStatsPatches
+        private void Update()
         {
-            private static void Postfix(PlayerGarden __instance)
+            var player = PlayerGarden.instance;
+            if (player != null && _toggle.Value)
             {
-                if (_toggle.Value)
-                {
-                    __instance.AddStat_Food(float.MaxValue);
-                    __instance.AddStat_Health(float.MaxValue);
-                    __instance.AddStat_Stamina(float.MaxValue);
-                    __instance.AddStat_Energy(float.MaxValue);
-                }
+                float hsim = player.healthyStateIncreaseMult;
+
+                player.AddStat_Food(float.MaxValue);
+                player.AddStat_Health(float.MaxValue);
+                player.AddStat_Stamina(float.MaxValue);
+                player.AddStat_Energy(float.MaxValue);
+
+                player.healthyStateIncreaseMult = hsim;
             }
         }
     }

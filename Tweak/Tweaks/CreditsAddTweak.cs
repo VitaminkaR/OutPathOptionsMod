@@ -1,15 +1,16 @@
 ﻿using HarmonyLib;
 using OutPathOptionsMod.Configuration.ConfigurationElements;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace OutPathOptionsMod.Tweaks
 {
     [Tweak(Name = "CreditsAdd", Category = "Player", ID = 3)]
     public class CreditsAddTweak : Tweak
     {
-        private static KeyConfigurationElement _key;
+        private KeyConfigurationElement _key;
 
-        private static IntConfigurationElement _value;
+        private IntConfigurationElement _value;
 
         public override void Init(OutPathOptionsMod plugin)
         {
@@ -19,14 +20,12 @@ namespace OutPathOptionsMod.Tweaks
             _key = KeyConfigurationElement.Create(GetConfigurations(), Name + "_toggle", "Add Key", KeyCode.P);
             _value = IntConfigurationElement.Create(GetConfigurations(), Name + "_credits", "Count", 100, 0, int.MaxValue);
         }
-
-        [HarmonyPatch(typeof(PlayerGarden), "Update")]
-        private static class CreditsAddPatches
+        private void Update()
         {
-            private static void Postfix(PlayerGarden __instance)
+            var player = PlayerGarden.instance;
+            if (player != null && Input.GetKeyDown(_key.Value))
             {
-                if (Input.GetKeyDown(_key.Value))
-                    __instance.AddCredits(_value.Value);
+                player.AddCredits(_value.Value);
             }
         }
     }
