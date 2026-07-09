@@ -1,5 +1,4 @@
 ﻿using BepInEx;
-using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
 using OutPathOptionsMod.Configuration;
@@ -8,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UnityEngine;
 
 //TODO:
 // World:
@@ -36,7 +36,7 @@ namespace OutPathOptionsMod
 
             Logger.LogInfo($"Plugin OPPtionsMod is loaded!");
 
-            configurationHandler = ConfigurationHandler.Create(this, "TWEAKS MENU");
+            configurationHandler = ConfigurationHandler.Create(this, "TWEAKS MENU", KeyCode.M);
             configurationHandler.AddConfigureCategory("Player");
             configurationHandler.AddConfigureCategory("Builds");
 
