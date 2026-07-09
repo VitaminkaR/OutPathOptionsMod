@@ -22,7 +22,6 @@ namespace OutPathOptionsMod.Tweaks
             if (player != null && _toggle.Value)
             {
                 player.healthyStateIncreaseMult = 0;
-                player.healthyStateDecreaseMult = 0;
             }
         }
     }
