@@ -66,7 +66,11 @@ namespace OutPathOptionsMod.Tweaks
                     }
 
                     var fields = type.GetFields().
-                        Where(f => f.Name.StartsWith("_timeTo") || f.Name.StartsWith("_timeOf") || f.Name.StartsWith("radius"))
+                        Where(f => f.Name.StartsWith("_timeTo") ||
+                        f.Name.StartsWith("_timeOf") ||
+                        f.Name.StartsWith("timeTo") ||
+                        f.Name.StartsWith("timeOf") ||
+                        f.Name.StartsWith("radius"))
                         .ToArray();
                     if (fields.Count() == 0)
                     {
@@ -88,6 +92,12 @@ namespace OutPathOptionsMod.Tweaks
                         var field = fields[i];
 
                         Logger.LogInfo($"\t\t{type.Name} {field.Name} prefix generate...");
+
+                        if (field.FieldType != typeof(float))
+                        {
+                            Logger.LogInfo($"\t\t{type.Name} {field.Name} prefix skipped ({field.FieldType.Name} isnt float)!");
+                            continue;
+                        }
 
                         if (field.Name.StartsWith("radius"))
                         {
@@ -146,6 +156,9 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_AutoFeeder __instance)
             {
+                if (_toggleSpeed.Value)
+                    __instance.timeToFeed -= Time.deltaTime * (_speedMultiplier.Value - 1);
+
                 if (_toggleRadius.Value)
                     __instance.radius *= _radiusMultiplier.Value;
             }
@@ -154,6 +167,7 @@ namespace OutPathOptionsMod.Tweaks
             {
                 if (_toggleRadius.Value)
                     __instance.radius /= _radiusMultiplier.Value;
+
             }
         }
 
@@ -162,6 +176,9 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_AutoFeederIsland __instance)
             {
+                if (_toggleSpeed.Value)
+                    __instance.timeToFeed -= Time.deltaTime * (_speedMultiplier.Value - 1);
+
                 if (_toggleRadius.Value)
                     __instance.radius *= _radiusMultiplier.Value;
             }
@@ -170,6 +187,7 @@ namespace OutPathOptionsMod.Tweaks
             {
                 if (_toggleRadius.Value)
                     __instance.radius /= _radiusMultiplier.Value;
+
             }
         }
 
@@ -232,6 +250,9 @@ namespace OutPathOptionsMod.Tweaks
             private static void Prefix(Build_CauldronOfferings __instance)
             {
                 if (_toggleSpeed.Value)
+                    __instance.timeToClone -= Time.deltaTime * (_speedMultiplier.Value - 1);
+
+                if (_toggleSpeed.Value)
                     __instance._timeToClone -= Time.deltaTime * (_speedMultiplier.Value - 1);
             }
         }
@@ -241,6 +262,9 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_CauldronSpirits __instance)
             {
+                if (_toggleSpeed.Value)
+                    __instance.timeToClone -= Time.deltaTime * (_speedMultiplier.Value - 1);
+
                 if (_toggleSpeed.Value)
                     __instance._timeToClone -= Time.deltaTime * (_speedMultiplier.Value - 1);
             }
@@ -293,6 +317,7 @@ namespace OutPathOptionsMod.Tweaks
             {
                 if (_toggleSpeed.Value)
                     __instance._timeToExtract -= Time.deltaTime * (_speedMultiplier.Value - 1);
+
             }
         }
 
@@ -303,12 +328,36 @@ namespace OutPathOptionsMod.Tweaks
             {
                 if (_toggleRadius.Value)
                     __instance.radius *= _radiusMultiplier.Value;
+
+                if (_toggleSpeed.Value)
+                    __instance.timeToSearch -= Time.deltaTime * (_speedMultiplier.Value - 1);
             }
 
             private static void Postfix(Build_Clicker __instance)
             {
                 if (_toggleRadius.Value)
                     __instance.radius /= _radiusMultiplier.Value;
+
+            }
+        }
+
+        [HarmonyPatch(typeof(Build_Cloner), "Update")]
+        private static class BuildMultipliersPatches_Cloner
+        {
+            private static void Prefix(Build_Cloner __instance)
+            {
+                if (_toggleSpeed.Value)
+                    __instance.timeToClone -= Time.deltaTime * (_speedMultiplier.Value - 1);
+            }
+        }
+
+        [HarmonyPatch(typeof(Build_CollectionNet), "Update")]
+        private static class BuildMultipliersPatches_CollectionNet
+        {
+            private static void Prefix(Build_CollectionNet __instance)
+            {
+                if (_toggleSpeed.Value)
+                    __instance.timeToCollect -= Time.deltaTime * (_speedMultiplier.Value - 1);
             }
         }
 
@@ -317,6 +366,9 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_Collector __instance)
             {
+                if (_toggleSpeed.Value)
+                    __instance.timeToCollect -= Time.deltaTime * (_speedMultiplier.Value - 1);
+
                 if (_toggleRadius.Value)
                     __instance.radius *= _radiusMultiplier.Value;
             }
@@ -325,6 +377,7 @@ namespace OutPathOptionsMod.Tweaks
             {
                 if (_toggleRadius.Value)
                     __instance.radius /= _radiusMultiplier.Value;
+
             }
         }
 
@@ -333,6 +386,9 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_CollectorInv __instance)
             {
+                if (_toggleSpeed.Value)
+                    __instance.timeToCollect -= Time.deltaTime * (_speedMultiplier.Value - 1);
+
                 if (_toggleRadius.Value)
                     __instance.radius *= _radiusMultiplier.Value;
             }
@@ -341,6 +397,7 @@ namespace OutPathOptionsMod.Tweaks
             {
                 if (_toggleRadius.Value)
                     __instance.radius /= _radiusMultiplier.Value;
+
             }
         }
 
@@ -349,6 +406,9 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_CollectorVoid __instance)
             {
+                if (_toggleSpeed.Value)
+                    __instance.timeToCollect -= Time.deltaTime * (_speedMultiplier.Value - 1);
+
                 if (_toggleRadius.Value)
                     __instance.radius *= _radiusMultiplier.Value;
             }
@@ -357,6 +417,7 @@ namespace OutPathOptionsMod.Tweaks
             {
                 if (_toggleRadius.Value)
                     __instance.radius /= _radiusMultiplier.Value;
+
             }
         }
 
@@ -365,6 +426,9 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_Core __instance)
             {
+                if (_toggleSpeed.Value)
+                    __instance.timeToSpawn -= Time.deltaTime * (_speedMultiplier.Value - 1);
+
                 if (_toggleSpeed.Value)
                     __instance._timeToSpawn -= Time.deltaTime * (_speedMultiplier.Value - 1);
 
@@ -396,6 +460,9 @@ namespace OutPathOptionsMod.Tweaks
             private static void Prefix(Build_Craft __instance)
             {
                 if (_toggleSpeed.Value)
+                    __instance.timeToCraft -= Time.deltaTime * (_speedMultiplier.Value - 1);
+
+                if (_toggleSpeed.Value)
                     __instance._timeToCraft -= Time.deltaTime * (_speedMultiplier.Value - 1);
             }
         }
@@ -405,6 +472,9 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_Devourer __instance)
             {
+                if (_toggleSpeed.Value)
+                    __instance.timeToAttack -= Time.deltaTime * (_speedMultiplier.Value - 1);
+
                 if (_toggleRadius.Value)
                     __instance.radius *= _radiusMultiplier.Value;
             }
@@ -413,6 +483,7 @@ namespace OutPathOptionsMod.Tweaks
             {
                 if (_toggleRadius.Value)
                     __instance.radius /= _radiusMultiplier.Value;
+
             }
         }
 
@@ -475,6 +546,9 @@ namespace OutPathOptionsMod.Tweaks
             {
                 if (_toggleSpeed.Value)
                     __instance._timeOfFuse -= Time.deltaTime * (_speedMultiplier.Value - 1);
+
+                if (_toggleSpeed.Value)
+                    __instance.timeOfFuse -= Time.deltaTime * (_speedMultiplier.Value - 1);
             }
         }
 
@@ -513,6 +587,9 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_Planter __instance)
             {
+                if (_toggleSpeed.Value)
+                    __instance.timeToFeed -= Time.deltaTime * (_speedMultiplier.Value - 1);
+
                 if (_toggleRadius.Value)
                     __instance.radius *= _radiusMultiplier.Value;
             }
@@ -521,6 +598,7 @@ namespace OutPathOptionsMod.Tweaks
             {
                 if (_toggleRadius.Value)
                     __instance.radius /= _radiusMultiplier.Value;
+
             }
         }
 
@@ -545,6 +623,9 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_Research __instance)
             {
+                if (_toggleSpeed.Value)
+                    __instance.timeToCraft -= Time.deltaTime * (_speedMultiplier.Value - 1);
+
                 if (_toggleSpeed.Value)
                     __instance._timeToCraft -= Time.deltaTime * (_speedMultiplier.Value - 1);
             }
@@ -611,6 +692,9 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_Spreader __instance)
             {
+                if (_toggleSpeed.Value)
+                    __instance.timeToPlant -= Time.deltaTime * (_speedMultiplier.Value - 1);
+
                 if (_toggleRadius.Value)
                     __instance.radius *= _radiusMultiplier.Value;
             }
@@ -619,6 +703,7 @@ namespace OutPathOptionsMod.Tweaks
             {
                 if (_toggleRadius.Value)
                     __instance.radius /= _radiusMultiplier.Value;
+
             }
         }
 
@@ -676,6 +761,9 @@ namespace OutPathOptionsMod.Tweaks
             private static void Prefix(Build_Trapper __instance)
             {
                 if (_toggleSpeed.Value)
+                    __instance.timeToAttack -= Time.deltaTime * (_speedMultiplier.Value - 1);
+
+                if (_toggleSpeed.Value)
                     __instance._timeToAttack -= Time.deltaTime * (_speedMultiplier.Value - 1);
 
                 if (_toggleRadius.Value)
@@ -725,6 +813,9 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_WearStation __instance)
             {
+                if (_toggleSpeed.Value)
+                    __instance.timeToAttack -= Time.deltaTime * (_speedMultiplier.Value - 1);
+
                 if (_toggleRadius.Value)
                     __instance.radius *= _radiusMultiplier.Value;
             }
@@ -733,6 +824,7 @@ namespace OutPathOptionsMod.Tweaks
             {
                 if (_toggleRadius.Value)
                     __instance.radius /= _radiusMultiplier.Value;
+
             }
         }
 
@@ -741,6 +833,9 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_WearStationVoid __instance)
             {
+                if (_toggleSpeed.Value)
+                    __instance.timeToAttack -= Time.deltaTime * (_speedMultiplier.Value - 1);
+
                 if (_toggleRadius.Value)
                     __instance.radius *= _radiusMultiplier.Value;
             }
@@ -749,9 +844,9 @@ namespace OutPathOptionsMod.Tweaks
             {
                 if (_toggleRadius.Value)
                     __instance.radius /= _radiusMultiplier.Value;
+
             }
         }
         #endregion PATCHES
-
     }
 }
