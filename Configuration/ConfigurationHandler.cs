@@ -64,6 +64,11 @@ namespace OutPathOptionsMod.Configuration
             return handler;
         }
 
+        public void AddConfigureCategory(string category)
+        {
+            _configureObjects.Add(category, new List<IConfigureObject>());
+        }
+
         public void AddConfigureObject(IConfigureObject obj)
         {
             string cat = obj.GetCategory();

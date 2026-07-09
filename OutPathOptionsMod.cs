@@ -37,6 +37,8 @@ namespace OutPathOptionsMod
             Logger.LogInfo($"Plugin OPPtionsMod is loaded!");
 
             configurationHandler = ConfigurationHandler.Create(this, "TWEAKS MENU");
+            configurationHandler.AddConfigureCategory("Player");
+            configurationHandler.AddConfigureCategory("Builds");
 
             Logger.LogInfo($"Loading Tweaks...");
             Tweaks = new List<Tweak>();
