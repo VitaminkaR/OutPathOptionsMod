@@ -19,7 +19,7 @@ namespace OutPathOptionsMod.Tweaks
         [HarmonyPatch(typeof(ItemPrefab), "SetupItemInfo")]
         private static class AutoResourcePickupPatches
         {
-            private static void Prefix(ItemPrefab __instance)
+            private static void Postfix(ItemPrefab __instance)
             {
                 if (_toggle.Value)
                     __instance.DirectCollect();
