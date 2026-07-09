@@ -116,7 +116,7 @@
     <Compile Include="Tweak\Tweaks\BuildMultipliersTweak.cs" />
     <Compile Include="Tweak\Tweaks\AutoResourcePickupTweak.cs" />
     <Compile Include="Tweak\Tweaks\InstantCraftTweak.cs" />
-    <Compile Include="Tweak\Tweaks\GetAllItemsTweak.cs" />
+    <Compile Include="Tweak\Tweaks\PickupItemsTweak.cs" />
     <Compile Include="Tweak\Tweaks\DupeItemTweak.cs" />
     <Compile Include="Tweak\Tweaks\InstantInteractTweak.cs" />
     <Compile Include="Tweak\Tweaks\InstantBreakTweak.cs" />
