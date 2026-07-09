@@ -62,6 +62,16 @@ namespace OutPathOptionsMod.Configuration.ConfigurationElements
             _max = max;
             _configEntry = _config.Bind<float>("Config", id, defvalue);
             _slider = slider;
+
+            // test after cfg load
+            if (Value > _max)
+            {
+                Value = _max;
+            }
+            else if (Value < _min)
+            {
+                Value = _min;
+            }
         }
 
         public static FloatConfigurationElement Create(
