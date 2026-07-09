@@ -5,11 +5,9 @@ using HarmonyLib;
 using OutPathOptionsMod.Configuration;
 using OutPathOptionsMod.Tweaks;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using UnityEngine;
 
 //TODO:
 // World:
