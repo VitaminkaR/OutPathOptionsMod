@@ -39,6 +39,7 @@ namespace OutPathOptionsMod
             configurationHandler = ConfigurationHandler.Create(this, "TWEAKS MENU", KeyCode.M);
             configurationHandler.AddConfigureCategory("Player");
             configurationHandler.AddConfigureCategory("Builds");
+            configurationHandler.AddConfigureCategory("Resources");
 
             Logger.LogInfo($"Loading Tweaks...");
             Tweaks = new List<Tweak>();
