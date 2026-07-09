@@ -16,13 +16,13 @@ namespace OutPathOptionsMod.Tweaks
             _toggle = BoolConfigurationElement.Create(GetConfigurations(), Name, "Toggle", false);
         }
 
-        [HarmonyPatch(typeof(PlayerGarden), "Update")]
-        private static class InstantInteractPatches
+        private void Update()
         {
-            private static void Postfix(PlayerGarden __instance)
+            var player = PlayerGarden.instance;
+            if (player != null && _toggle.Value)
             {
-                if (!_toggle.Value) return;
-                __instance.healthyStateIncreaseMult = 0;
+                player.healthyStateIncreaseMult = 0;
+                player.healthyStateDecreaseMult = 0;
             }
         }
     }
