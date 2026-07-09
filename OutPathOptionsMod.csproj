@@ -101,6 +101,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ConfigurationElements\ButtonConfigurationElement.cs" />
     <Compile Include="Configuration\ConfigurationElements\KeyConfigurationElement.cs" />
     <Compile Include="Configuration\ConfigurationElements\FloatConfigurationElement.cs" />
     <Compile Include="Configuration\ConfigurationElements\IntConfigurationElement.cs" />
