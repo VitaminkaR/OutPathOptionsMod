@@ -6,7 +6,7 @@ namespace OutPathOptionsMod.Tweaks
     [Tweak(Name = "InstantInteract", Category = "Player", ID = 1)]
     public class InstantInteractTweak : Tweak
     {
-        private static BoolConfigurationElement _toggle;
+        private BoolConfigurationElement _toggle;
 
         public override void Init(OutPathOptionsMod plugin)
         {
