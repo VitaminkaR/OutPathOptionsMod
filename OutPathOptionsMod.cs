@@ -9,10 +9,6 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
-//TODO:
-// World:
-// Spawnrate
-
 namespace OutPathOptionsMod
 {
     [BepInPlugin("com.vrcompany.outpath.optionsmod", "OutPath Options Mod", "0.2.1")]
