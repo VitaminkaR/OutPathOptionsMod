@@ -42,6 +42,7 @@
     <Compile Include="Configuration\IConfigureObject.cs" />
     <Compile Include="OutPathOptionsMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tweak\Tweaks\CropPlotTweak.cs" />
     <Compile Include="Tweak\Tweaks\SpawnRateTweak.cs" />
     <Compile Include="Tweak\Tweaks\KillAllTweak.cs" />
     <Compile Include="Tweak\Tweaks\DestroyAllTweak.cs" />

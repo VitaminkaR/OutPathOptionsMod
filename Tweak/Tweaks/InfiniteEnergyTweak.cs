@@ -1,117 +1,46 @@
 ﻿using HarmonyLib;
 using OutPathOptionsMod.Configuration.ConfigurationElements;
+using UnityEngine;
 
 namespace OutPathOptionsMod.Tweaks
 {
-    [Tweak(Name = "InfiniteEnergy", Category = "Builds", ID = 1)]
-    public class InfiniteEnergyTweak : Tweak
+    [Tweak(Name = "CropPlot", Category = "Builds", ID = 5)]
+    public class CropPlotTweak : Tweak
     {
-        private static BoolConfigurationElement _toggle;
+        private static BoolConfigurationElement _toggleInfiniteWater;
+        private static BoolConfigurationElement _toggleInfiniteFert;
+        private static BoolConfigurationElement _toggleFastGrow;
 
         public override void Init(OutPathOptionsMod plugin)
         {
             base.Init(plugin);
 
-            HeaderConfigurationElement.Create(GetConfigurations(), $"{Name}_header", "[INFINITE ENERGY]");
-            _toggle = BoolConfigurationElement.Create(GetConfigurations(), Name, "Toggle", false);
+            HeaderConfigurationElement.Create(GetConfigurations(), $"{Name}_header", "[CROP PLOT]");
+            _toggleInfiniteWater = BoolConfigurationElement.Create(GetConfigurations(), $"{Name}_infinite_water", "Infinite Water", false);
+            _toggleInfiniteFert = BoolConfigurationElement.Create(GetConfigurations(), $"{Name}_infinite_fert", "Infinite Fertilizer", false);
+            _toggleFastGrow = BoolConfigurationElement.Create(GetConfigurations(), $"{Name}__fast_grow", "Fast Grow", false);
         }
 
-        [HarmonyPatch(typeof(Build_WearStation), "UseEnergy")]
-        private class InfiniteEnergyPatches_WearStation
+        [HarmonyPatch(typeof(Build_CropPlot), "AddTicks")]
+        private static class CropPlotPatches_CropPlot
         {
-            private static void Prefix(Build_WearStation __instance)
+            private static void Prefix(Build_CropPlot __instance)
             {
-                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
-            }
-        }
+                if (_toggleInfiniteWater.Value)
+                    __instance.waterLevel = 30;
 
-        [HarmonyPatch(typeof(Build_BreakerManual), "UseEnergy")]
-        private class InfiniteEnergyPatches_BreakerManual
-        {
-            private static void Prefix(Build_BreakerManual __instance)
-            {
-                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
-            }
-        }
+                if (_toggleInfiniteFert.Value && __instance.fertilizerItemInfo != null)
+                    __instance._fertilizerDuration = __instance.fertilizerItemInfo.cropFertilizerDuration;
 
-        [HarmonyPatch(typeof(Build_ChlorophyllConverter), "UseEnergy")]
-        private class InfiniteEnergyPatches_ChlorophyllConverter
-        {
-            private static void Prefix(Build_ChlorophyllConverter __instance)
-            {
-                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
-            }
-        }
-
-        [HarmonyPatch(typeof(Build_ChlorophyllExtractor), "UseEnergy")]
-        private class InfiniteEnergyPatches_ChlorophyllExtractor
-        {
-            private static void Prefix(Build_ChlorophyllExtractor __instance)
-            {
-                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
-            }
-        }
-
-        [HarmonyPatch(typeof(Build_OreExtractor), "Update_Extracting")]
-        private class InfiniteEnergyPatches_OreExtractor
-        {
-            private static void Prefix(Build_OreExtractor __instance)
-            {
-                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
-            }
-        }
-
-        [HarmonyPatch(typeof(Build_SlayerManual), "UseEnergy")]
-        private class InfiniteEnergyPatches_Slayer
-        {
-            private static void Prefix(Build_SlayerManual __instance)
-            {
-                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
-            }
-        }
-
-        [HarmonyPatch(typeof(Build_SoilMiner), "UseEnergy")]
-        private class InfiniteEnergyPatches_SoilMiner
-        {
-            private static void Prefix(Build_SoilMiner __instance)
-            {
-                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
-            }
-        }
-
-        [HarmonyPatch(typeof(Build_SoilMinerV2), "UseEnergy")]
-        private class InfiniteEnergyPatches_SoilMinerV2
-        {
-            private static void Prefix(Build_SoilMinerV2 __instance)
-            {
-                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
-            }
-        }
-
-        [HarmonyPatch(typeof(Build_Trapper), "UseEnergy")]
-        private class InfiniteEnergyPatches_Trapper
-        {
-            private static void Prefix(Build_Trapper __instance)
-            {
-                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
-            }
-        }
-
-        [HarmonyPatch(typeof(Build_Vaporizer), "UseEnergy")]
-        private class InfiniteEnergyPatches_Vaporizer
-        {
-            private static void Prefix(Build_Vaporizer __instance)
-            {
-                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
-            }
-        }
-
-        [HarmonyPatch(typeof(Build_WaterPump_Manual), "UseEnergy")]
-        private class InfiniteEnergyPatches_WaterPump
-        {
-            private static void Prefix(Build_WaterPump_Manual __instance)
-            {
-                if (_toggle.Value) __instance.energy = __instance.maxEnergy;
+                if (_toggleFastGrow.Value)
+                {
+                    var crops = __instance.crops;
+                    for (int i = 0; i < crops.Length; i++)
+                    {
+                        var crop = crops[i];
+                        crop.currTicks = crop.maxTicks;
+                    }
+                }
             }
         }
     }
