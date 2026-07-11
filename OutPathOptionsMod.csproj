@@ -42,6 +42,7 @@
     <Compile Include="Configuration\IConfigureObject.cs" />
     <Compile Include="OutPathOptionsMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tweak\Tweaks\AutoFishTweak.cs" />
     <Compile Include="Tweak\Tweaks\AutoCollectTweak.cs" />
     <Compile Include="Tweak\Tweaks\InfiniteEnergyTweak.cs" />
     <Compile Include="Tweak\Tweaks\SpawnRateTweak.cs" />
