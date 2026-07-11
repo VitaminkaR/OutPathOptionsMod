@@ -3,7 +3,7 @@ using OutPathOptionsMod.Configuration.ConfigurationElements;
 
 namespace OutPathOptionsMod.Tweaks
 {
-    [Tweak(Name = "InstantBuildBreak", Category = "Builds", ID = 2)]
+    [Tweak(Name = "InstantBuildBreak", Category = "Builds")]
     public class InstantBuildBreakTweak : Tweak
     {
         private static BoolConfigurationElement _toggle;

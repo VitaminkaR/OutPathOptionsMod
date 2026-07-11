@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace OutPathOptionsMod.Tweaks
 {
-    [Tweak(Name = "DestroyAll", Category = "Resources", ID = 1)]
+    [Tweak(Name = "DestroyAll", Category = "Resources")]
     public class DestroyAllTweak : Tweak
     {
         private KeyConfigurationElement _key;

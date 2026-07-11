@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace OutPathOptionsMod.Tweaks
 {
-    [Tweak(Name = "CropPlot", Category = "Builds", ID = 5)]
+    [Tweak(Name = "CropPlot", Category = "Builds")]
     public class CropPlotTweak : Tweak
     {
         private static BoolConfigurationElement _toggleInfiniteWater;

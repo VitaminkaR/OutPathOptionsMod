@@ -2,7 +2,7 @@
 
 namespace OutPathOptionsMod.Tweaks
 {
-    [Tweak(Name = "InstantInteract", Category = "Player", ID = 1)]
+    [Tweak(Name = "InstantInteract", Category = "Player")]
     public class InstantInteractTweak : Tweak
     {
         private BoolConfigurationElement _toggle;

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace OutPathOptionsMod.Tweaks
 {
-    [Tweak(Name = "BuildMultipliers", Category = "Builds", ID = 0)]
+    [Tweak(Name = "BuildMultipliers", Category = "Builds")]
     public class BuildMultipliersTweak : Tweak
     {
         private static BoolConfigurationElement _toggleSpeed;
@@ -24,15 +24,15 @@ namespace OutPathOptionsMod.Tweaks
             _toggleSpeed = BoolConfigurationElement.Create(GetConfigurations(), $"{Name}_speedToggle", "Toggle Speed Multiplier", false);
             _speedMultiplier = FloatConfigurationElement.Create(GetConfigurations(), $"{Name}_speedMultiplier", "Speed", 1, 0, 1000);
             _speedMultiplier.IsEnabled = _toggleSpeed.Value;
-            _toggleSpeed.OnChangeValue += (bool v) => _speedMultiplier.IsEnabled = v;
+            _toggleSpeed.OnChangeValue += v => _speedMultiplier.IsEnabled = v;
             _toggleRadius = BoolConfigurationElement.Create(GetConfigurations(), $"{Name}_radiusToggle", "Toggle Radius Multiplier", false);
             _radiusMultiplier = FloatConfigurationElement.Create(GetConfigurations(), $"{Name}_radiusMultiplier", "Radius", 1, 0, 1000);
             _radiusMultiplier.IsEnabled = _toggleRadius.Value;
-            _toggleRadius.OnChangeValue += (bool v) => _radiusMultiplier.IsEnabled = v;
+            _toggleRadius.OnChangeValue += v => _radiusMultiplier.IsEnabled = v;
 
 #if DEBUG
             BoolConfigurationElement.Create(GetConfigurations(), $"{Name}_generator", "Generator (FOR DEVELOPER! DONT USE!)", false)
-                .OnChangeValue += (bool v) => PatchGenerate();
+                .OnChangeValue += _ => PatchGenerate();
 #endif
         }
 
@@ -56,7 +56,7 @@ namespace OutPathOptionsMod.Tweaks
                     var methods = type
                         .GetMethods(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
                         .Where(m => m.Name.Equals("Update"));
-                    if (methods.Count() == 0)
+                    if (!methods.Any())
                     {
                         Logger.LogInfo($"\t{type.Name} skipped (not find update)!");
                         continue;
@@ -69,7 +69,7 @@ namespace OutPathOptionsMod.Tweaks
                         f.Name.StartsWith("timeOf") ||
                         f.Name.StartsWith("radius"))
                         .ToArray();
-                    if (fields.Count() == 0)
+                    if (!fields.Any())
                     {
                         Logger.LogInfo($"\t{type.Name} skipped (not find fields)!");
                         continue;
@@ -83,7 +83,7 @@ namespace OutPathOptionsMod.Tweaks
                     sw.WriteLine("\t{");
 
                     List<FieldInfo> radiusFields = new List<FieldInfo>(); // fore generation postfix (return the radius value)
-                    int fieldsCount = fields.Count();
+                    int fieldsCount = fields.Length;
                     for (int i = 0; i < fieldsCount; i++)
                     {
                         var field = fields[i];

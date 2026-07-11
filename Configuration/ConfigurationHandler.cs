@@ -21,7 +21,7 @@ namespace OutPathOptionsMod.Configuration
 
         private bool _isChangeKey;
 
-        private Rect _windowRect = new Rect(100, 100, 720, 680);
+        private Rect _windowRect;
 
         private Vector2 _scrollPosition;
 
@@ -35,7 +35,7 @@ namespace OutPathOptionsMod.Configuration
 
         private ConfigEntry<KeyboardShortcut> _openMenuKeyEntry;
 
-        private event Action<KeyCode> _onChangeOpenMenuKey;
+        private event Action<KeyCode> OnChangeOpenMenuKey;
 
         public static ConfigurationHandler Create(
             BaseUnityPlugin plugin,
@@ -54,7 +54,13 @@ namespace OutPathOptionsMod.Configuration
 
             handler._openMenuKeyEntry = Config.Bind<KeyboardShortcut>("Main", "open_menu", new KeyboardShortcut(openMenuKey));
             handler.OpenMenuKey = handler._openMenuKeyEntry.Value.MainKey;
-            handler._onChangeOpenMenuKey += (KeyCode kc) => handler._openMenuKeyEntry.Value = new KeyboardShortcut(kc);
+            handler.OnChangeOpenMenuKey += kc => handler._openMenuKeyEntry.Value = new KeyboardShortcut(kc);
+
+            handler._windowRect = new Rect(
+                Screen.width / 8,
+                32,
+                Screen.width * 3 / 4,
+                Screen.height * 9 / 10);
 
             return handler;
         }
@@ -74,8 +80,6 @@ namespace OutPathOptionsMod.Configuration
                 _configureObjects.Add(obj.GetCategory(), new List<IConfigureObject>());
 
             _configureObjects[cat].Add(obj);
-
-            _configureObjects[cat].Sort((x, y) => x.GetID().CompareTo(y.GetID()));
         }
 
         private void OpenMenu()
@@ -110,7 +114,7 @@ namespace OutPathOptionsMod.Configuration
                 {
                     OpenMenuKey = Event.current.keyCode;
                     _isChangeKey = false;
-                    _onChangeOpenMenuKey.Invoke(OpenMenuKey);
+                    OnChangeOpenMenuKey.Invoke(OpenMenuKey);
                 }
             }
 

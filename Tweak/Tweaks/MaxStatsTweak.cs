@@ -2,7 +2,7 @@
 
 namespace OutPathOptionsMod.Tweaks
 {
-    [Tweak(Name = "MaxStats", Category = "Player", ID = 0)]
+    [Tweak(Name = "MaxStats", Category = "Player")]
     public class MaxStatsTweak : Tweak
     {
         private BoolConfigurationElement _toggle;

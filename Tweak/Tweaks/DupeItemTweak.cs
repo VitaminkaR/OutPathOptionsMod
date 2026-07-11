@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace OutPathOptionsMod.Tweaks
 {
-    [Tweak(Name = "DupeItem", Category = "Player", ID = 4)]
+    [Tweak(Name = "DupeItem", Category = "Player")]
     public class DupeItemTweak : Tweak
     {
         private static KeyConfigurationElement _key;

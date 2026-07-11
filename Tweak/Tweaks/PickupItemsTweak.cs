@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace OutPathOptionsMod.Tweaks
 {
-    [Tweak(Name = "PickupItems", Category = "Player", ID = 5)]
+    [Tweak(Name = "PickupItems", Category = "Player")]
     public class PickupItemsTweak : Tweak
     {
         private static KeyConfigurationElement _key;

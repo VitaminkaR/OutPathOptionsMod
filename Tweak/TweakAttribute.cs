@@ -8,7 +8,5 @@ namespace OutPathOptionsMod.Tweaks
         public string Name;
 
         public string Category;
-
-        public int ID = 0;
     }
 }

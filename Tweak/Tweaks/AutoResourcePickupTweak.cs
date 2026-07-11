@@ -3,7 +3,7 @@ using OutPathOptionsMod.Configuration.ConfigurationElements;
 
 namespace OutPathOptionsMod.Tweaks
 {
-    [Tweak(Name = "AutoResourcePickup", Category = "Resources", ID = 0)]
+    [Tweak(Name = "AutoResourcePickup", Category = "Resources")]
     public class AutoResourcePickupTweak : Tweak
     {
         private static BoolConfigurationElement _toggle;

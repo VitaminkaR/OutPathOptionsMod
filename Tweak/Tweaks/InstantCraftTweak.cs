@@ -3,7 +3,7 @@ using OutPathOptionsMod.Configuration.ConfigurationElements;
 
 namespace OutPathOptionsMod.Tweaks
 {
-    [Tweak(Name = "InstantCraft", Category = "Builds", ID = 0)]
+    [Tweak(Name = "InstantCraft", Category = "Builds")]
     public class InstantCraftTweak : Tweak
     {
         private static BoolConfigurationElement _toggle;

@@ -23,8 +23,6 @@ namespace OutPathOptionsMod.Tweaks
             Logger = OutPathOptionsMod.GetLogger;
         }
 
-        int IConfigureObject.GetID() => GetType().GetCustomAttribute<TweakAttribute>().ID;
-
         string IConfigureObject.GetCategory() => GetType().GetCustomAttribute<TweakAttribute>().Category;
     }
 }

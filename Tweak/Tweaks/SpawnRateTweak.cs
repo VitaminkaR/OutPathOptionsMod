@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace OutPathOptionsMod.Tweaks
 {
-    [Tweak(Name = "SpawnRate", Category = "Resources", ID = 3)]
+    [Tweak(Name = "SpawnRate", Category = "Resources")]
     public class SpawnRateTweak : Tweak
     {
         private static BoolConfigurationElement _toggleProp;
@@ -20,12 +20,12 @@ namespace OutPathOptionsMod.Tweaks
             _toggleProp = BoolConfigurationElement.Create(GetConfigurations(), $"{Name}_toggle_propsr", "Toggle Prop Spawn Rate", false);
             _propSR = FloatConfigurationElement.Create(GetConfigurations(), $"{Name}_propsr", "Prop Spawn Rate", 2, 1, 100);
             _propSR.IsEnabled = _toggleProp.Value;
-            _toggleProp.OnChangeValue += (bool v) => _propSR.IsEnabled = v;
+            _toggleProp.OnChangeValue += v => _propSR.IsEnabled = v;
 
             _toggleEnemy = BoolConfigurationElement.Create(GetConfigurations(), $"{Name}_toggle_enemysr", "Toggle Enemy Spawn Rate", false);
             _enemySR = FloatConfigurationElement.Create(GetConfigurations(), $"{Name}_enemysr", "Enemy Spawn Rate", 2, 1, 100);
             _enemySR.IsEnabled = _toggleEnemy.Value;
-            _toggleEnemy.OnChangeValue += (bool v) => _enemySR.IsEnabled = v;
+            _toggleEnemy.OnChangeValue += v => _enemySR.IsEnabled = v;
         }
 
         [HarmonyPatch(typeof(IsleGenerator), "Update")]

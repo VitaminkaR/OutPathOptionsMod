@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace OutPathOptionsMod.Tweaks
 {
-    [Tweak(Name = "CreditsAdd", Category = "Player", ID = 3)]
+    [Tweak(Name = "CreditsAdd", Category = "Player")]
     public class CreditsAddTweak : Tweak
     {
         private KeyConfigurationElement _key;

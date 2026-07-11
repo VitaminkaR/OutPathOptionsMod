@@ -16,7 +16,7 @@ namespace OutPathOptionsMod
     {
         public PluginInfo PluginInfo { get; } = new PluginInfo();
 
-        private static Harmony harmony = new Harmony("com.vrcompany.outpath.optionsmod");
+        private static readonly Harmony harmony = new Harmony("com.vrcompany.outpath.optionsmod");
 
         public static List<Tweak> Tweaks;
 
@@ -30,14 +30,14 @@ namespace OutPathOptionsMod
         {
             logger = Logger;
 
-            Logger.LogInfo($"Plugin OPPtionsMod is loaded!");
+            Logger.LogInfo("Plugin OPPtionsMod is loaded!");
 
             configurationHandler = ConfigurationHandler.Create(this, "TWEAKS MENU", KeyCode.M);
             configurationHandler.AddConfigureCategory("Player");
             configurationHandler.AddConfigureCategory("Builds");
             configurationHandler.AddConfigureCategory("Resources");
 
-            Logger.LogInfo($"Loading Tweaks...");
+            Logger.LogInfo("Loading Tweaks...");
             Tweaks = new List<Tweak>();
             var assembly = Assembly.GetExecutingAssembly();
             var types = assembly.GetTypes()

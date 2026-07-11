@@ -3,7 +3,7 @@ using OutPathOptionsMod.Configuration.ConfigurationElements;
 
 namespace OutPathOptionsMod.Tweaks
 {
-    [Tweak(Name = "AutoCollect", Category = "Builds", ID = 6)]
+    [Tweak(Name = "AutoCollect", Category = "Builds")]
     public class AutoCollectTweak : Tweak
     {
         private static BoolConfigurationElement _toggle;
