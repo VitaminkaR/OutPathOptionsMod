@@ -21,7 +21,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_BeeHive __instance)
             {
-                if (_toggle.Value)
+                if (_toggle.Value && __instance.currCapacity > 0)
                     __instance.TakeOutItems();
             }
         }
@@ -31,28 +31,8 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_CollectionNet __instance)
             {
-                if (_toggle.Value)
+                if (_toggle.Value && __instance.canTakeItem)
                     __instance.TakeOutItem();
-            }
-        }
-
-        [HarmonyPatch(typeof(Build_Collector), "Update")]
-        private static class AutoCollectPatches_Collector
-        {
-            private static void Prefix(Build_Collector __instance)
-            {
-                if (_toggle.Value)
-                    __instance.TakeOutItems();
-            }
-        }
-
-        [HarmonyPatch(typeof(Build_CollectorInv), "Update")]
-        private static class AutoCollectPatches_CollectorInv
-        {
-            private static void Prefix(Build_CollectorInv __instance)
-            {
-                if (_toggle.Value)
-                    __instance.TakeOutItems();
             }
         }
 
@@ -61,17 +41,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_CrabTrap __instance)
             {
-                if (_toggle.Value)
-                    __instance.TakeOutItems();
-            }
-        }
-
-        [HarmonyPatch(typeof(Build_Incubator), "Update")]
-        private static class AutoCollectPatches_Incubator
-        {
-            private static void Prefix(Build_Incubator __instance)
-            {
-                if (_toggle.Value)
+                if (_toggle.Value && __instance.currCrabsCought > 0)
                     __instance.TakeOutItems();
             }
         }
@@ -81,7 +51,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_Market __instance)
             {
-                if (_toggle.Value)
+                if (_toggle.Value && __instance.currCredits > 1000)
                     __instance.TakeOutItems();
             }
         }
@@ -91,7 +61,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_SoilMiner __instance)
             {
-                if (_toggle.Value)
+                if (_toggle.Value && __instance.currCapacity > 0)
                     __instance.TakeOutItems();
             }
         }
@@ -101,17 +71,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_SoilMinerV2 __instance)
             {
-                if (_toggle.Value)
-                    __instance.TakeOutItems();
-            }
-        }
-
-        [HarmonyPatch(typeof(Build_Supplier), "Update")]
-        private static class AutoCollectPatches_Supplier
-        {
-            private static void Prefix(Build_Supplier __instance)
-            {
-                if (_toggle.Value)
+                if (_toggle.Value && __instance.currCapacity > 0)
                     __instance.TakeOutItems();
             }
         }
@@ -121,7 +81,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_Vaporizer __instance)
             {
-                if (_toggle.Value)
+                if (_toggle.Value && __instance.currCapacity > 0)
                     __instance.TakeOutItems();
             }
         }
@@ -131,7 +91,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_WaterPump __instance)
             {
-                if (_toggle.Value)
+                if (_toggle.Value && __instance.currCapacity > 0)
                     __instance.TakeOutItems();
             }
         }
@@ -141,7 +101,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_WaterPump_Manual __instance)
             {
-                if (_toggle.Value)
+                if (_toggle.Value && __instance.currCapacity > 0)
                     __instance.TakeOutItemsFromClicker();
             }
         }
@@ -151,7 +111,7 @@ namespace OutPathOptionsMod.Tweaks
         {
             private static void Prefix(Build_ReceptionTower __instance)
             {
-                if (_toggle.Value)
+                if (_toggle.Value && __instance.currQuantity > 0)
                     __instance.TakeOutItems();
             }
         }
